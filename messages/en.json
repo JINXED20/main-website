@@ -1,0 +1,184 @@
+{
+  "nav": {
+    "features": "Features",
+    "integrations": "Integrations",
+    "pricing": "Pricing",
+    "docs": "Docs",
+    "faq": "FAQ",
+    "signin": "Sign In",
+    "getstarted": "Get Started"
+  },
+  "hero": {
+    "badge": "Now Available — v2.0 Launch",
+    "line1": "Last Mile",
+    "line2": "Delivery.",
+    "line3": "First Class API.",
+    "description": "Power your logistics with intelligent routing, real-time tracking, and seamless multi-carrier integration. One API, unlimited possibilities.",
+    "cta1": "Start Free Trial",
+    "cta2": "View Documentation",
+    "stat1": "deliveries right now",
+    "stat2": "uptime today"
+  },
+  "clients": {
+    "title": "Trusted by industry leaders"
+  },
+  "stats": {
+    "deliveries": "Million+ Deliveries",
+    "uptime": "Uptime SLA",
+    "carriers": "Carriers",
+    "response": "API Response"
+  },
+  "features": {
+    "tag": "Features",
+    "title": "Highly expert delivery infrastructure",
+    "subtitle": "Everything you need to power world-class delivery experiences, from real-time tracking to intelligent routing.",
+    "items": {
+      "realtime": {
+        "title": "Real-Time Tracking",
+        "description": "Live location updates with sub-second latency. Keep your customers informed at every step of the journey."
+      },
+      "multicarrier": {
+        "title": "Multi-Carrier Support",
+        "description": "One API to connect 120+ carriers worldwide. Automatic rate shopping finds the best option."
+      },
+      "rates": {
+        "title": "Smart Rate Shopping",
+        "description": "Compare rates across carriers instantly. Save up to 40% on shipping costs automatically."
+      },
+      "labels": {
+        "title": "Label Generation",
+        "description": "Generate shipping labels in seconds. Support for all major carriers and formats."
+      },
+      "webhooks": {
+        "title": "Instant Webhooks",
+        "description": "Real-time event notifications. Never poll for updates again with our reliable webhook system."
+      },
+      "analytics": {
+        "title": "Advanced Analytics",
+        "description": "Deep insights into performance, costs, and delivery times. Make data-driven decisions."
+      }
+    }
+  },
+  "integrations": {
+    "tag": "Integrations",
+    "title": "Works with your stack",
+    "subtitle": "Seamlessly connect with the tools you already use. No complicated setup required."
+  },
+  "testimonials": {
+    "tag": "Testimonials",
+    "title": "Loved by developers",
+    "subtitle": "See what developers and businesses have to say about building with ORDEX."
+  },
+  "api": {
+    "tag": "Developer Experience",
+    "title": "Built for developers",
+    "subtitle": "Clean, predictable APIs with comprehensive SDKs for every major language.",
+    "feature1": "Type-safe SDKs for all major languages",
+    "feature2": "Comprehensive API documentation",
+    "feature3": "Real-time webhook notifications",
+    "feature4": "Sandbox environment for testing",
+    "cta": "Explore Documentation"
+  },
+  "faq": {
+    "tag": "FAQ",
+    "title": "Got questions?",
+    "subtitle": "Everything you need to know about ORDEX and our delivery API platform.",
+    "items": {
+      "q1": {
+        "question": "How quickly can I integrate ORDEX?",
+        "answer": "Most developers are up and running within a few hours. Our SDKs handle all the complexity, and our documentation includes copy-paste examples for common use cases."
+      },
+      "q2": {
+        "question": "Which carriers do you support?",
+        "answer": "We support 120+ carriers worldwide including FedEx, UPS, DHL, USPS, and dozens of regional carriers. Our automatic carrier selection chooses the best option based on your criteria."
+      },
+      "q3": {
+        "question": "What's your uptime guarantee?",
+        "answer": "We guarantee 99.9% uptime SLA for all paid plans. Our infrastructure is distributed across multiple regions with automatic failover."
+      },
+      "q4": {
+        "question": "Can I use ORDEX for international shipping?",
+        "answer": "Absolutely! ORDEX supports international shipping to 200+ countries. We handle customs documentation and compliance requirements automatically."
+      },
+      "q5": {
+        "question": "How does pricing work?",
+        "answer": "We offer simple per-shipment pricing with no hidden fees. Start free with 1,000 shipments/month, then scale as you grow."
+      }
+    }
+  },
+  "pricing": {
+    "tag": "Pricing",
+    "title": "Simple, transparent pricing",
+    "subtitle": "Start free, scale as you grow. No hidden fees.",
+    "month": "month",
+    "popular": "Most Popular",
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "description": "Perfect for testing and small projects",
+        "features": {
+          "0": "1,000 shipments/month",
+          "1": "Basic tracking",
+          "2": "5 carriers",
+          "3": "Email support",
+          "4": "API access"
+        },
+        "cta": "Get Started Free"
+      },
+      "growth": {
+        "name": "Growth",
+        "description": "For growing businesses",
+        "features": {
+          "0": "50,000 shipments/month",
+          "1": "Real-time tracking",
+          "2": "All 120+ carriers",
+          "3": "Priority support",
+          "4": "Advanced analytics"
+        },
+        "cta": "Start Free Trial"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Custom",
+        "description": "For large-scale operations",
+        "features": {
+          "0": "Unlimited shipments",
+          "1": "Dedicated infrastructure",
+          "2": "Custom integrations",
+          "3": "24/7 phone support",
+          "4": "99.99% SLA"
+        },
+        "cta": "Contact Sales"
+      }
+    }
+  },
+  "cta": {
+    "title": "Ready to ship smarter?",
+    "subtitle": "Join thousands of businesses using ORDEX to power their delivery operations.",
+    "cta1": "Start Free Trial",
+    "cta2": "Schedule Demo"
+  },
+  "footer": {
+    "description": "Next-generation delivery infrastructure for the modern world. Fast, reliable, and intelligent logistics.",
+    "quickLinks": "Quick Links",
+    "resources": "Resources",
+    "resourceLinks": {
+      "docs": "Documentation",
+      "blog": "Blog",
+      "support": "Support",
+      "status": "Status"
+    },
+    "locations": "Locations",
+    "locationItems": {
+      "riyadh": "Riyadh",
+      "riyadhAddress": "King Fahd Road, Olaya District",
+      "dubai": "Dubai",
+      "dubaiAddress": "Business Bay, Bay Square",
+      "cairo": "Cairo",
+      "cairoAddress": "Smart Village, Giza"
+    },
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  }
+}

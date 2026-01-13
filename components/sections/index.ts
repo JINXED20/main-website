@@ -1,0 +1,11 @@
+export { Hero } from './Hero';
+export { Clients } from './Clients';
+export { Stats } from './Stats';
+export { Features } from './Features';
+export { Integrations } from './Integrations';
+export { Testimonials } from './Testimonials';
+export { ApiShowcase } from './ApiShowcase';
+export { Faq } from './Faq';
+export { Pricing } from './Pricing';
+export { Cta } from './Cta';
+export { Footer } from './Footer';
