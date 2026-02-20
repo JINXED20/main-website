@@ -43,7 +43,7 @@ function AnimatedFlow() {
   ];
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto h-72 md:h-80">
+    <div className="relative w-full max-w-2xl mx-auto h-48 md:h-56">
       {/* Chaos side */}
       <div className="absolute left-0 top-0 w-2/5 h-full">
         {chaosItems.map((item, i) => (
@@ -117,7 +117,7 @@ export function HeroSection() {
   const Arrow = isRTL ? ArrowLeft : ArrowRight;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-18">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden pt-18 pb-20">
       {/* Background effects */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A1628] via-[#0A1628] to-[#0F1D32]" />
@@ -155,7 +155,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00C896]/10 border border-[#00C896]/20 text-[#00C896] text-sm mb-8"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00C896]/10 border border-[#00C896]/20 text-[#00C896] text-sm mt-6 mb-5"
         >
           <span className="w-2 h-2 rounded-full bg-[#00C896] animate-pulse" />
           {t("Syria's First Delivery-as-a-Service Platform", "أول منصة توصيل كخدمة في سوريا")}
@@ -166,7 +166,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#E8E4DF] tracking-tight max-w-5xl mx-auto mb-6"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#E8E4DF] tracking-tight max-w-5xl mx-auto mb-4"
         >
           {t("We Don't Just Connect Carriers", "لا نربط شركات التوصيل فقط")}{" "}
           <span className="bg-gradient-to-r from-[#00C896] to-[#5CE1E6] bg-clip-text text-transparent">
@@ -179,7 +179,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-lg md:text-xl text-[#D4D0C8]/60 max-w-2xl mx-auto mb-10"
+          className="text-lg md:text-xl text-[#D4D0C8]/60 max-w-2xl mx-auto mb-6"
         >
           {t(
             "The all-in-one platform that modernizes delivery companies and connects them to merchants. Ship, track, analyze, and grow — from a single dashboard.",
@@ -192,7 +192,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10"
         >
           <Link
             to="/pricing"
@@ -222,7 +222,7 @@ export function HeroSection() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2"
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >

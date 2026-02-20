@@ -8,12 +8,11 @@ export function About() {
   const { t } = useLanguage();
 
   const timeline = [
-    { year: "2024", title: t("The Idea", "الفكرة"), desc: t("Identified the massive gap in Syria's delivery infrastructure", "تحديد الفجوة الهائلة في البنية التحتية للتوصيل في سوريا") },
-    { year: "2024", title: t("Product Development", "تطوير المنتج"), desc: t("Built the carrier automation platform from the ground up", "بناء منصة أتمتة الناقل من الصفر") },
-    { year: "2025", title: t("Beta Launch", "إطلاق تجريبي"), desc: t("Onboarded first carriers and merchants in Damascus", "انضمام أول شركات التوصيل والتجار في دمشق") },
-    { year: "2025", title: t("Product-Market Fit", "ملاءمة السوق"), desc: t("Reached 500+ merchants and 25+ carrier connections", "الوصول لأكثر من ٥٠٠ تاجر و٢٥ شركة توصيل") },
-    { year: "2026", title: t("Scaling", "التوسع"), desc: t("Expanding across Syria and preparing for Iraq market entry", "التوسع في سوريا والتحضير لدخول السوق العراقي") },
-    { year: "2027", title: t("MENA Expansion", "التوسع في المنطقة"), desc: t("Targeting emerging markets across the region", "استهداف الأسواق الناشئة في المنطقة") },
+    { year: t("Late 2025", "أواخر 2025"), title: t("The Spark", "الشرارة"), desc: t("Identified the massive gap in Syria's delivery infrastructure and started building the vision", "تحديد الفجوة الهائلة في البنية التحتية للتوصيل في سوريا والبدء ببناء الرؤية") },
+    { year: "2026", title: t("Building the Foundation", "بناء الأساس"), desc: t("Developing the carrier automation platform and onboarding first partners in Damascus", "تطوير منصة أتمتة شركات التوصيل وضم أول الشركاء في دمشق") },
+    { year: "2027", title: t("Dominating Syria", "السيطرة على السوق السوري"), desc: t("Becoming the go-to delivery platform across all Syrian cities — the undisputed market leader", "أن نصبح منصة التوصيل الأولى في جميع المدن السورية — الرائد بلا منازع") },
+    { year: "2028", title: t("Regional Expansion", "التوسع الإقليمي"), desc: t("Entering Iraq and neighboring markets, bringing our proven model to new ground", "دخول العراق والأسواق المجاورة، ونقل نموذجنا المُثبت إلى أرض جديدة") },
+    { year: "2029", title: t("MENA Leaders", "رواد المنطقة"), desc: t("Establishing Ordex as the leading delivery infrastructure across emerging MENA markets", "ترسيخ أودركس كالبنية التحتية الرائدة للتوصيل في الأسواق الناشئة بالمنطقة") },
   ];
 
   const teamMembers = [
