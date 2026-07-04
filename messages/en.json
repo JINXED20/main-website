@@ -1,184 +1,183 @@
 {
+  "meta": {
+    "title": "Ordex — Every order. Every carrier. One gateway.",
+    "description": "Ordex plugs Syrian e-commerce stores into every carrier — one API for routing, dispatch, live tracking and COD reconciliation. We're not the trains. We're the rails."
+  },
+  "a11y": {
+    "skip": "Skip to content",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "langSwitch": "التبديل إلى العربية",
+    "home": "Ordex — home"
+  },
   "nav": {
-    "features": "Features",
-    "integrations": "Integrations",
+    "platform": "Platform",
+    "audience": "Who it's for",
+    "developers": "Developers",
     "pricing": "Pricing",
-    "docs": "Docs",
     "faq": "FAQ",
-    "signin": "Sign In",
-    "getstarted": "Get Started"
+    "cta": "Get API key"
+  },
+  "lang": {
+    "label": "عربي"
   },
   "hero": {
-    "badge": "Now Available — v2.0 Launch",
-    "line1": "Last Mile",
-    "line2": "Delivery.",
-    "line3": "First Class API.",
-    "description": "Power your logistics with intelligent routing, real-time tracking, and seamless multi-carrier integration. One API, unlimited possibilities.",
-    "cta1": "Start Free Trial",
-    "cta2": "View Documentation",
-    "stat1": "deliveries right now",
-    "stat2": "uptime today"
+    "eyebrow": "Syria's delivery gateway",
+    "line1": "Every order.",
+    "line2": "Every carrier.",
+    "line3": "One gateway.",
+    "sub": "Ordex plugs your store into every carrier in Syria. We route, dispatch, track, and reconcile cash on delivery — while you keep selling.",
+    "cta1": "Get API key",
+    "cta2": "See the platform"
   },
-  "clients": {
-    "title": "Trusted by industry leaders"
+  "metrics": {
+    "m1": { "value": "14", "prefix": "", "suffix": "", "label": "Governorates covered" },
+    "m2": { "value": "200", "prefix": "<", "suffix": "ms", "label": "Routing decision" },
+    "m3": { "value": "1", "prefix": "", "suffix": "", "label": "API for every carrier" },
+    "m4": { "value": "99.9", "prefix": "", "suffix": "%", "label": "Uptime target" }
   },
-  "stats": {
-    "deliveries": "Million+ Deliveries",
-    "uptime": "Uptime SLA",
-    "carriers": "Carriers",
-    "response": "API Response"
+  "strategy": {
+    "label": "The idea",
+    "titleA": "We're not the trains.",
+    "titleB": "We're the rails.",
+    "copy": "Carriers drive the trucks. Ordex builds the rails they run on — routing, dispatch, live tracking, and COD settlement through one clean layer between your store and every delivery company in the country.",
+    "cta": "Explore the platform"
   },
-  "features": {
-    "tag": "Features",
-    "title": "Highly expert delivery infrastructure",
-    "subtitle": "Everything you need to power world-class delivery experiences, from real-time tracking to intelligent routing.",
-    "items": {
-      "realtime": {
-        "title": "Real-Time Tracking",
-        "description": "Live location updates with sub-second latency. Keep your customers informed at every step of the journey."
-      },
-      "multicarrier": {
-        "title": "Multi-Carrier Support",
-        "description": "One API to connect 120+ carriers worldwide. Automatic rate shopping finds the best option."
-      },
-      "rates": {
-        "title": "Smart Rate Shopping",
-        "description": "Compare rates across carriers instantly. Save up to 40% on shipping costs automatically."
-      },
-      "labels": {
-        "title": "Label Generation",
-        "description": "Generate shipping labels in seconds. Support for all major carriers and formats."
-      },
-      "webhooks": {
-        "title": "Instant Webhooks",
-        "description": "Real-time event notifications. Never poll for updates again with our reliable webhook system."
-      },
-      "analytics": {
-        "title": "Advanced Analytics",
-        "description": "Deep insights into performance, costs, and delivery times. Make data-driven decisions."
-      }
+  "flows": {
+    "label": "The platform",
+    "heading": "What runs on Ordex.",
+    "f1": {
+      "title": "One API",
+      "tag": "Routing · Dispatch",
+      "desc": "Create a shipment in one call. Ordex picks the right carrier and returns a live tracking link."
+    },
+    "f2": {
+      "title": "Carrier OS",
+      "tag": "Driver app · Dispatch board",
+      "desc": "Driver app, dispatch board, GPS and COD tools — free for carriers that don't have their own tech."
+    },
+    "f3": {
+      "title": "Store connect",
+      "tag": "E-commerce · Social",
+      "desc": "Salla, Zid, Shopify, WooCommerce or Instagram DMs — orders flow in from wherever you sell."
+    },
+    "f4": {
+      "title": "Tracking + COD",
+      "tag": "Customers · Settlement",
+      "desc": "Live tracking for your customers. Reconciled cash-on-delivery settlements for you."
     }
   },
-  "integrations": {
-    "tag": "Integrations",
-    "title": "Works with your stack",
-    "subtitle": "Seamlessly connect with the tools you already use. No complicated setup required."
-  },
-  "testimonials": {
-    "tag": "Testimonials",
-    "title": "Loved by developers",
-    "subtitle": "See what developers and businesses have to say about building with ORDEX."
+  "audience": {
+    "label": "Who it's for",
+    "headingA": "Built for anyone",
+    "headingB": "selling anywhere.",
+    "a1": {
+      "title": "Instagram shops",
+      "desc": "Forward an order from your DMs. Ordex routes it, creates tracking, and keeps your customer updated."
+    },
+    "a2": {
+      "title": "Physical retailers",
+      "desc": "Sell in-store and deliver same-day with pickup scheduling, labels, and zone-based carrier selection."
+    },
+    "a3": {
+      "title": "E-commerce platforms",
+      "desc": "Connect Shopify, WooCommerce, Salla, or a custom backend with clean endpoints and webhooks."
+    },
+    "a4": {
+      "title": "Enterprise B2B",
+      "desc": "Bulk dispatch, signed delivery, custom SLAs, COD reconciliation, and dedicated routing logic."
+    }
   },
   "api": {
-    "tag": "Developer Experience",
-    "title": "Built for developers",
-    "subtitle": "Clean, predictable APIs with comprehensive SDKs for every major language.",
-    "feature1": "Type-safe SDKs for all major languages",
-    "feature2": "Comprehensive API documentation",
-    "feature3": "Real-time webhook notifications",
-    "feature4": "Sandbox environment for testing",
-    "cta": "Explore Documentation"
-  },
-  "faq": {
-    "tag": "FAQ",
-    "title": "Got questions?",
-    "subtitle": "Everything you need to know about ORDEX and our delivery API platform.",
-    "items": {
-      "q1": {
-        "question": "How quickly can I integrate ORDEX?",
-        "answer": "Most developers are up and running within a few hours. Our SDKs handle all the complexity, and our documentation includes copy-paste examples for common use cases."
-      },
-      "q2": {
-        "question": "Which carriers do you support?",
-        "answer": "We support 120+ carriers worldwide including FedEx, UPS, DHL, USPS, and dozens of regional carriers. Our automatic carrier selection chooses the best option based on your criteria."
-      },
-      "q3": {
-        "question": "What's your uptime guarantee?",
-        "answer": "We guarantee 99.9% uptime SLA for all paid plans. Our infrastructure is distributed across multiple regions with automatic failover."
-      },
-      "q4": {
-        "question": "Can I use ORDEX for international shipping?",
-        "answer": "Absolutely! ORDEX supports international shipping to 200+ countries. We handle customs documentation and compliance requirements automatically."
-      },
-      "q5": {
-        "question": "How does pricing work?",
-        "answer": "We offer simple per-shipment pricing with no hidden fees. Start free with 1,000 shipments/month, then scale as you grow."
+    "label": "Developers",
+    "heading": "Ship in one call.",
+    "sub": "A clean REST API with webhooks. Sandbox keys in minutes, not meetings.",
+    "comment1": "Create a delivery in one call",
+    "comment2": "Routed to the right carrier in under 200ms",
+    "dash": {
+      "title": "Today's orders",
+      "live": "Live",
+      "rows": {
+        "r1": { "id": "#ORD-49102", "store": "Sham Store", "route": "Damascus → Aleppo", "status": "Delivered" },
+        "r2": { "id": "#ORD-49101", "store": "Aleppo Coffee", "route": "Aleppo → Latakia", "status": "In transit" },
+        "r3": { "id": "#ORD-49100", "store": "Noor Bakery", "route": "Homs → Damascus", "status": "In transit" },
+        "r4": { "id": "#ORD-49099", "store": "Damascus Digital", "route": "Damascus → Tartus", "status": "Pickup" }
       }
     }
   },
   "pricing": {
-    "tag": "Pricing",
-    "title": "Simple, transparent pricing",
-    "subtitle": "Start free, scale as you grow. No hidden fees.",
-    "month": "month",
-    "popular": "Most Popular",
-    "plans": {
-      "starter": {
-        "name": "Starter",
-        "description": "Perfect for testing and small projects",
-        "features": {
-          "0": "1,000 shipments/month",
-          "1": "Basic tracking",
-          "2": "5 carriers",
-          "3": "Email support",
-          "4": "API access"
-        },
-        "cta": "Get Started Free"
+    "label": "Pricing",
+    "headingA": "Pay per delivery.",
+    "headingB": "No setup fee.",
+    "perDelivery": "SYP / delivery",
+    "custom": "Custom",
+    "quote": "per quote",
+    "featured": "Most popular",
+    "t1": {
+      "tier": "Starter",
+      "title": "For Instagram shops",
+      "price": "800",
+      "features": {
+        "1": "Up to 100 orders / month",
+        "2": "Forward-from-DM workflow",
+        "3": "Tracking links for customers",
+        "4": "Web dashboard"
       },
-      "growth": {
-        "name": "Growth",
-        "description": "For growing businesses",
-        "features": {
-          "0": "50,000 shipments/month",
-          "1": "Real-time tracking",
-          "2": "All 120+ carriers",
-          "3": "Priority support",
-          "4": "Advanced analytics"
-        },
-        "cta": "Start Free Trial"
+      "cta": "Start free"
+    },
+    "t2": {
+      "tier": "Growth",
+      "title": "For real stores",
+      "price": "600",
+      "features": {
+        "1": "Unlimited orders",
+        "2": "Full API + webhooks",
+        "3": "Salla, Zid, Shopify, WooCommerce",
+        "4": "COD reconciliation"
       },
-      "enterprise": {
-        "name": "Enterprise",
-        "price": "Custom",
-        "description": "For large-scale operations",
-        "features": {
-          "0": "Unlimited shipments",
-          "1": "Dedicated infrastructure",
-          "2": "Custom integrations",
-          "3": "24/7 phone support",
-          "4": "99.99% SLA"
-        },
-        "cta": "Contact Sales"
-      }
+      "cta": "Get API key"
+    },
+    "t3": {
+      "tier": "Enterprise",
+      "title": "For B2B scale",
+      "features": {
+        "1": "Custom SLAs by zone",
+        "2": "Dedicated routing rules",
+        "3": "Bulk dispatch API",
+        "4": "White-label tracking"
+      },
+      "cta": "Book a demo"
     }
   },
-  "cta": {
-    "title": "Ready to ship smarter?",
-    "subtitle": "Join thousands of businesses using ORDEX to power their delivery operations.",
-    "cta1": "Start Free Trial",
-    "cta2": "Schedule Demo"
+  "faq": {
+    "label": "FAQ",
+    "heading": "The honest questions.",
+    "q1": "How is Ordex different from using carriers directly?",
+    "a1": "One contract, one API, one dashboard for every order — instead of stitching together separate carrier portals, spreadsheets, and phone calls.",
+    "q2": "Do you cover all of Syria?",
+    "a2": "The platform is built around all 14 governorates, with routing by fastest, cheapest, or closest carrier preference.",
+    "q3": "How does cash on delivery work?",
+    "a3": "Ordex aggregates carrier settlements into one wallet with daily ledger entries and reconciliation views, with a 5% variance tolerance before an order is flagged.",
+    "q4": "Is this too much for a small shop?",
+    "a4": "No. The Starter flow is designed for a one-person Instagram shop — no website and no engineering team needed.",
+    "q5": "Can a carrier without any software join?",
+    "a5": "Yes. Ordex Carrier OS gives them a driver app, dispatch board, GPS tracking, and COD tools for free — in exchange for carrying merchant orders routed through Ordex."
   },
   "footer": {
-    "description": "Next-generation delivery infrastructure for the modern world. Fast, reliable, and intelligent logistics.",
-    "quickLinks": "Quick Links",
-    "resources": "Resources",
-    "resourceLinks": {
-      "docs": "Documentation",
-      "blog": "Blog",
-      "support": "Support",
-      "status": "Status"
-    },
-    "locations": "Locations",
-    "locationItems": {
-      "riyadh": "Riyadh",
-      "riyadhAddress": "King Fahd Road, Olaya District",
-      "dubai": "Dubai",
-      "dubaiAddress": "Business Bay, Bay Square",
-      "cairo": "Cairo",
-      "cairoAddress": "Smart Village, Giza"
-    },
-    "rights": "All rights reserved.",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Service"
+    "big": "Start shipping tonight",
+    "ctaEmail": "hello@tryordex.com",
+    "phone": "+963 944 123 456",
+    "city": "Damascus, Syria",
+    "tagline": "Orders, expertly routed.",
+    "linksLabel": "Site",
+    "contactLabel": "Contact",
+    "backToTop": "Back to top",
+    "rights": "All rights reserved."
+  },
+  "notFound": {
+    "code": "404",
+    "title": "This route was never dispatched.",
+    "desc": "The page you're looking for doesn't exist or has moved.",
+    "cta": "Back to home"
   }
 }

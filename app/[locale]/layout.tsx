@@ -1,35 +1,82 @@
+import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, setRequestLocale } from 'next-intl/server';
-import { Inter, JetBrains_Mono, Tajawal } from 'next/font/google';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
+import { Archivo, Archivo_Black, Geist_Mono, IBM_Plex_Sans_Arabic } from 'next/font/google';
 import { routing } from '@/i18n/routing';
-import { Navbar, PageLoader, ScrollProgress, BackToTop } from '@/components/layout';
-import { MouseSpotlight } from '@/components/animations';
+import { Topbar } from '@/components/layout/Topbar';
+import { Footer } from '@/components/layout/Footer';
 
-const inter = Inter({
+const archivoBlack = Archivo_Black({
+  weight: '400',
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-inter',
+  variable: '--font-archivo-black',
   display: 'swap',
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const archivo = Archivo({
   subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-mono',
+  variable: '--font-archivo',
   display: 'swap',
 });
 
-const tajawal = Tajawal({
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-geist-mono',
+  display: 'swap',
+});
+
+const plexArabic = IBM_Plex_Sans_Arabic({
+  weight: ['400', '500', '700'],
   subsets: ['arabic'],
-  weight: ['300', '400', '500', '700', '800', '900'],
-  variable: '--font-tajawal',
+  variable: '--font-arabic',
   display: 'swap',
 });
+
+const BASE_URL = 'https://tryordex.com';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'meta' });
+
+  return {
+    metadataBase: new URL(BASE_URL),
+    title: t('title'),
+    description: t('description'),
+    alternates: {
+      canonical: `/${locale}`,
+      languages: { en: '/en', ar: '/ar', 'x-default': '/en' },
+    },
+    openGraph: {
+      type: 'website',
+      siteName: 'Ordex',
+      locale: locale === 'ar' ? 'ar_SY' : 'en_US',
+      title: t('title'),
+      description: t('description'),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+    },
+    robots: { index: true, follow: true },
+  };
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#f6f6f1',
+};
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -39,33 +86,44 @@ interface LocaleLayoutProps {
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = await params;
 
-  // Validate locale
-  if (!routing.locales.includes(locale as typeof routing.locales[number])) {
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }
 
-  // Enable static rendering
   setRequestLocale(locale);
-
-  // Get messages for the locale
   const messages = await getMessages();
-
+  const t = await getTranslations({ locale, namespace: 'a11y' });
   const isRtl = locale === 'ar';
-  const fontClass = isRtl
-    ? `${tajawal.variable} ${jetbrainsMono.variable}`
-    : `${inter.variable} ${jetbrainsMono.variable}`;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Ordex',
+    url: BASE_URL,
+    logo: `${BASE_URL}/brand/ordex-logo.svg`,
+    email: 'hello@tryordex.com',
+    address: { '@type': 'PostalAddress', addressLocality: 'Damascus', addressCountry: 'SY' },
+  };
 
   return (
-    <html lang={locale} dir={isRtl ? 'rtl' : 'ltr'} className={fontClass}>
-      <body className="min-h-screen bg-[var(--black)] font-sans text-white antialiased">
+    <html
+      lang={locale}
+      dir={isRtl ? 'rtl' : 'ltr'}
+      className={`${archivoBlack.variable} ${archivo.variable} ${geistMono.variable} ${plexArabic.variable}`}
+    >
+      <body>
         <NextIntlClientProvider messages={messages}>
-          <PageLoader />
-          <ScrollProgress />
-          <MouseSpotlight />
-          <Navbar />
-          <main>{children}</main>
-          <BackToTop />
+          <a href="#main" className="skip-link">
+            {t('skip')}
+          </a>
+          <Topbar />
+          <main id="main">{children}</main>
+          <Footer />
         </NextIntlClientProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </body>
     </html>
   );
