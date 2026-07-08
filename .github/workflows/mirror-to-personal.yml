@@ -1,0 +1,26 @@
+name: Mirror to personal repo
+
+# Whenever main is updated on this (org) repo, push it to
+# JINXED20/main-website so Vercel (free plan) can deploy it.
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {} # allow manual runs from the Actions tab
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push main to personal repo
+        env:
+          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
+        run: |
+          git push --force \
+            "https://x-access-token:${MIRROR_TOKEN}@github.com/JINXED20/main-website.git" \
+            HEAD:main
