@@ -1,162 +1,352 @@
 @import "tailwindcss";
-@import "../styles/variables.css";
-@import "../styles/animations.css";
 
-/* Tailwind Theme Extensions for v4 */
+/* ---------------------------------------------------------------------------
+   Ordex design tokens — brutalist neon system
+   Brand: lime #bbff00 · purple #a550ff · ink #000000
+--------------------------------------------------------------------------- */
+
 @theme inline {
   /* Colors */
-  --color-black: var(--black);
-  --color-black-soft: var(--black-soft);
-  --color-black-card: var(--black-card);
-  --color-black-border: var(--black-border);
-  --color-accent: var(--accent);
-  --color-accent-cyan: var(--accent-cyan);
-  --color-accent-purple: var(--accent-purple);
-  --color-gray-muted: var(--gray);
-  --color-gray-light: var(--gray-light);
+  --color-paper: #f6f6f1;
+  --color-card: #ffffff;
+  --color-ink: #000000;
+  --color-ink-soft: #171717;
+  --color-muted: #63635c;
+  --color-line: #d8d8cf;
+  --color-lime: #bbff00;
+  --color-lime-hot: #dfff00;
+  --color-purple: #a550ff;
 
-  /* Fonts */
-  --font-sans: var(--font-inter), var(--font-tajawal), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  /* Fonts — latin first, Arabic fallback picks up Arabic glyphs */
+  --font-display: var(--font-archivo-black), var(--font-arabic-display), system-ui, sans-serif;
+  --font-sans: var(--font-archivo), var(--font-arabic), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --spacing-pad: clamp(20px, 4.6vw, 56px);
 }
 
-/* Global Styles */
-html {
-  scroll-behavior: smooth;
+/* ------------------------------- Base -----------------------------------
+   Everything lives in cascade layers so Tailwind utilities always win over
+   base styles and component classes (unlayered CSS would beat them all). */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-card);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  /* RTL: Arabic fonts must come FIRST — next/font's local(Arial) metric
+     fallbacks contain Arabic glyphs and would otherwise shadow them. */
+  [dir="rtl"] body {
+    font-family: var(--font-arabic), var(--font-archivo), system-ui, sans-serif;
+    line-height: 1.7;
+  }
+
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-purple);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Anchored sections clear the sticky header */
+  section[id],
+  footer[id] {
+    scroll-margin-top: 96px;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
 }
 
-body {
-  font-family: var(--font-sans);
-  background: var(--black);
-  color: var(--white);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-/* RTL Support */
-html[dir="rtl"] {
-  direction: rtl;
+/* --------------------------- Shared helpers ------------------------------ */
+
+@layer components {
+
+/* Near-fluid container: only a slim gutter on each side, capped for 4K */
+.wrap {
+  max-width: 1880px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 3.2vw, 60px);
 }
 
-html[dir="rtl"] body {
-  text-align: right;
+/* Display type — Archivo Black, tight and loud */
+.display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.84;
+  letter-spacing: -0.05em;
 }
 
-/* Arabic Font Family */
-html[dir="rtl"] * {
-  font-family: var(--font-tajawal), var(--font-inter), sans-serif;
+/* Arabic: Kufi display first — no letterspacing tricks, taller leading */
+[dir="rtl"] .display {
+  font-family: var(--font-arabic-display), var(--font-archivo-black), system-ui, sans-serif;
+  letter-spacing: 0;
+  line-height: 1.45;
+  font-weight: 900;
 }
 
-/* Selection Styles */
-::selection {
-  background: rgba(0, 255, 136, 0.3);
-  color: var(--white);
+/* Mono micro-labels */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-::-moz-selection {
-  background: rgba(0, 255, 136, 0.3);
-  color: var(--white);
+[dir="rtl"] .mono-label {
+  letter-spacing: 0;
+  font-family: var(--font-arabic), var(--font-geist-mono), sans-serif;
+  font-weight: 700;
+  font-size: 12px;
 }
 
-/* Scrollbar Styles */
-::-webkit-scrollbar {
+/* Nav links — animated lime underline on hover */
+.nav-link {
+  --nav-pos: left;
+  background-image: linear-gradient(var(--color-lime), var(--color-lime));
+  background-repeat: no-repeat;
+  background-size: 0% 42%;
+  background-position: var(--nav-pos) 78%;
+  transition: background-size 280ms var(--ease-out-expo);
+}
+
+[dir="rtl"] .nav-link {
+  --nav-pos: right;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  background-size: 100% 42%;
+}
+
+/* Lime marker highlight (bottom-half underline) */
+.marker-lime {
+  background: linear-gradient(transparent 55%, var(--color-lime) 55%);
+  padding-inline: 0.06em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Solid buttons — display is set at call sites (inline-flex / flex)
+   so Tailwind's `hidden` / responsive display utilities keep working. */
+.btn {
+  align-items: center;
+  gap: 12px;
+  padding: 15px 22px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 200ms var(--ease-out-expo), box-shadow 200ms var(--ease-out-expo), background-color 200ms, color 200ms;
+  touch-action: manipulation;
+  min-height: 48px;
+}
+
+[dir="rtl"] .btn {
+  letter-spacing: 0;
+  font-family: var(--font-arabic), var(--font-geist-mono), sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-ink {
+  background: var(--color-ink);
+  color: #fff;
+}
+
+.btn-ink:hover {
+  box-shadow: 6px 6px 0 var(--color-lime);
+  transform: translate(-2px, -2px);
+}
+
+[dir="rtl"] .btn-ink:hover {
+  box-shadow: -6px 6px 0 var(--color-lime);
+  transform: translate(2px, -2px);
+}
+
+.btn-lime {
+  background: var(--color-lime);
+  color: var(--color-ink);
+}
+
+.btn-lime:hover {
+  box-shadow: 6px 6px 0 var(--color-ink);
+  transform: translate(-2px, -2px);
+}
+
+[dir="rtl"] .btn-lime:hover {
+  box-shadow: -6px 6px 0 var(--color-ink);
+  transform: translate(2px, -2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover,
+  .btn:active {
+    transform: none;
+  }
+}
+
+/* Round arrow chip (↗ in a circle) */
+.arrow-chip {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-lime-hot);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: transform 250ms var(--ease-out-expo), background-color 200ms;
+}
+
+.arrow-chip:hover {
+  transform: rotate(45deg);
+  background: var(--color-lime);
+}
+
+[dir="rtl"] .arrow-chip:hover {
+  transform: rotate(-45deg);
+}
+
+/* Flip directional arrows in RTL */
+[dir="rtl"] .dir-arrow {
+  transform: scaleX(-1);
+}
+
+/* Code blocks always LTR, even on the Arabic site */
+.force-ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Live pulse dot */
+.pulse-dot {
+  position: relative;
   width: 8px;
   height: 8px;
+  border-radius: 50%;
+  background: var(--color-ink);
+  flex: none;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--black);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--black-border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gray);
-}
-
-/* Focus Styles */
-*:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-/* Link Reset */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* Button Reset */
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
-}
-
-/* List Reset */
-ul, ol {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* Image Reset */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Gradient Text Utility */
-.gradient-text {
-  background: var(--gradient-text);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientMove 4s ease infinite;
-}
-
-/* Glass Effect Utility */
-.glass {
-  background: rgba(17, 17, 17, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-/* Accent Glow Utility */
-.accent-glow {
-  box-shadow: var(--shadow-accent);
-}
-
-.accent-glow-lg {
-  box-shadow: var(--shadow-accent-lg);
-}
-
-/* Pattern Background Utilities */
-.pattern-grid {
-  background-image:
-    linear-gradient(rgba(0, 255, 136, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 136, 0.02) 1px, transparent 1px);
-  background-size: 80px 80px;
-}
-
-/* Noise Texture */
-.noise-overlay {
-  position: relative;
-}
-
-.noise-overlay::after {
-  content: '';
+.pulse-dot::after {
+  content: "";
   position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.02;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--color-ink);
+  opacity: 0.4;
+  animation: pulse-ring 2s var(--ease-out-expo) infinite;
 }
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+  80%,
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Parcel flow — dashes traveling along the hero rope (merchant → carrier) */
+@keyframes rope-flow {
+  to {
+    stroke-dashoffset: -640;
+  }
+}
+
+.rope-flow {
+  stroke-dasharray: 5 35;
+  animation: rope-flow 6s linear infinite;
+}
+
+/* Orbiting badge text spin */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-slow {
+  animation: spin-slow 18s linear infinite;
+}
+
+/* FAQ details marker */
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary .faq-plus {
+  transition: transform 250ms var(--ease-out-expo);
+}
+
+.faq-item[open] summary .faq-plus {
+  transform: rotate(45deg);
+}
+
+/* Skip link */
+.skip-link {
+  position: fixed;
+  inset-inline-start: 16px;
+  top: -100px;
+  z-index: 200;
+  padding: 12px 20px;
+  background: var(--color-ink);
+  color: var(--color-lime);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: top 200ms;
+}
+
+.skip-link:focus-visible {
+  top: 16px;
+}
+
+} /* end @layer components */
