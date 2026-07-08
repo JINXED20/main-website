@@ -39,7 +39,7 @@ export function Topbar() {
         <a
           href="#top"
           aria-label={t('a11y.home')}
-          className="flex items-center py-3 text-[27px]"
+          className="flex items-center py-3 text-[26px] transition-opacity hover:opacity-75"
         >
           <Logo />
         </a>
@@ -51,9 +51,9 @@ export function Topbar() {
               <li key={key}>
                 <a
                   href={href}
-                  className="mono-label cursor-pointer py-2 text-ink/85 transition-opacity hover:text-ink hover:opacity-100"
+                  className="nav-link mono-label cursor-pointer px-1 py-2 text-ink"
                 >
-                  <span className="hover:marker-lime">{t(`nav.${key}`)}</span>
+                  {t(`nav.${key}`)}
                 </a>
               </li>
             ))}

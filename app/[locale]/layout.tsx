@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
-import { Archivo, Archivo_Black, Geist_Mono, IBM_Plex_Sans_Arabic } from 'next/font/google';
+import { Archivo, Archivo_Black, Cairo, Geist_Mono, Noto_Kufi_Arabic } from 'next/font/google';
 import { routing } from '@/i18n/routing';
 import { Topbar } from '@/components/layout/Topbar';
 import { Footer } from '@/components/layout/Footer';
@@ -27,8 +27,15 @@ const geistMono = Geist_Mono({
   display: 'swap',
 });
 
-const plexArabic = IBM_Plex_Sans_Arabic({
-  weight: ['400', '500', '700'],
+// Arabic display: Noto Kufi Arabic — geometric Kufi, weight 900 pairs with Archivo Black
+const kufiArabic = Noto_Kufi_Arabic({
+  subsets: ['arabic'],
+  variable: '--font-arabic-display',
+  display: 'swap',
+});
+
+// Arabic body/UI: Cairo — modern geometric sans, the Levant e-commerce standard
+const cairo = Cairo({
   subsets: ['arabic'],
   variable: '--font-arabic',
   display: 'swap',
@@ -109,7 +116,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <html
       lang={locale}
       dir={isRtl ? 'rtl' : 'ltr'}
-      className={`${archivoBlack.variable} ${archivo.variable} ${geistMono.variable} ${plexArabic.variable}`}
+      className={`${archivoBlack.variable} ${archivo.variable} ${geistMono.variable} ${kufiArabic.variable} ${cairo.variable}`}
     >
       <body>
         <NextIntlClientProvider messages={messages}>

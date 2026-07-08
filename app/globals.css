@@ -17,8 +17,8 @@
   --color-lime-hot: #dfff00;
   --color-purple: #a550ff;
 
-  /* Fonts */
-  --font-display: var(--font-archivo-black), var(--font-arabic), system-ui, sans-serif;
+  /* Fonts — latin first, Arabic fallback picks up Arabic glyphs */
+  --font-display: var(--font-archivo-black), var(--font-arabic-display), system-ui, sans-serif;
   --font-sans: var(--font-archivo), var(--font-arabic), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
 
@@ -46,6 +46,13 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
+  }
+
+  /* RTL: Arabic fonts must come FIRST — next/font's local(Arial) metric
+     fallbacks contain Arabic glyphs and would otherwise shadow them. */
+  [dir="rtl"] body {
+    font-family: var(--font-arabic), var(--font-archivo), system-ui, sans-serif;
+    line-height: 1.7;
   }
 
   ::selection {
@@ -105,10 +112,12 @@
   letter-spacing: -0.05em;
 }
 
-/* Arabic: no letterspacing tricks, taller leading, no uppercase concept */
+/* Arabic: Kufi display first — no letterspacing tricks, taller leading */
 [dir="rtl"] .display {
+  font-family: var(--font-arabic-display), var(--font-archivo-black), system-ui, sans-serif;
   letter-spacing: 0;
-  line-height: 1.12;
+  line-height: 1.45;
+  font-weight: 900;
 }
 
 /* Mono micro-labels */
@@ -122,9 +131,28 @@
 
 [dir="rtl"] .mono-label {
   letter-spacing: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-arabic), var(--font-geist-mono), sans-serif;
   font-weight: 700;
   font-size: 12px;
+}
+
+/* Nav links — animated lime underline on hover */
+.nav-link {
+  --nav-pos: left;
+  background-image: linear-gradient(var(--color-lime), var(--color-lime));
+  background-repeat: no-repeat;
+  background-size: 0% 42%;
+  background-position: var(--nav-pos) 78%;
+  transition: background-size 280ms var(--ease-out-expo);
+}
+
+[dir="rtl"] .nav-link {
+  --nav-pos: right;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  background-size: 100% 42%;
 }
 
 /* Lime marker highlight (bottom-half underline) */
@@ -154,8 +182,9 @@
 
 [dir="rtl"] .btn {
   letter-spacing: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-arabic), var(--font-geist-mono), sans-serif;
   font-size: 14px;
+  font-weight: 700;
 }
 
 .btn:active {
