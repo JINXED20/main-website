@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { Logo } from '@/components/ui/Logo';
 import { ArrowUpRight } from '@/components/ui/icons';
@@ -17,24 +18,45 @@ export async function Footer() {
   return (
     <footer id="contact" className="bg-ink text-white">
       {/* CTA band */}
-      <div className="wrap grid gap-10 py-20 lg:grid-cols-[1.5fr_1fr] lg:items-center lg:py-28">
-        <h2 className="display max-w-[11ch] text-[clamp(44px,7vw,96px)]">
-          {t('footer.big')}
-          <span className="text-purple">.</span>
-        </h2>
-        <div className="flex flex-col items-start gap-6">
-          <a href="#api" className="btn btn-lime inline-flex">
-            {t('nav.cta')}
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
-          <a
-            href={`mailto:${t('footer.ctaEmail')}`}
-            dir="ltr"
-            className="mono-label cursor-pointer text-base text-white/80 transition-colors hover:text-lime"
-          >
-            {t('footer.ctaEmail')}
-          </a>
+      <div className="wrap grid gap-12 py-20 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:py-24">
+        <div>
+          <h2 className="display max-w-[11ch] text-[clamp(44px,7vw,96px)]">
+            {t.rich('footer.big', {
+              mark: (chunks) => (
+                <span className="box-decoration-clone bg-lime px-[0.06em] text-ink">{chunks}</span>
+              ),
+            })}
+            <span className="text-purple">.</span>
+          </h2>
+          <div className="mt-9 flex flex-wrap items-center gap-6">
+            <a href="#api" className="btn btn-lime inline-flex">
+              {t('nav.cta')}
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+            <a
+              href={`mailto:${t('footer.ctaEmail')}`}
+              dir="ltr"
+              className="mono-label cursor-pointer text-base text-white/80 transition-colors hover:text-lime"
+            >
+              {t('footer.ctaEmail')}
+            </a>
+          </div>
         </div>
+
+        {/* Circuit pacman render — dark bg blends into the footer */}
+        <Image
+          src="/brand/pacman-circuit.jpg"
+          alt=""
+          aria-hidden="true"
+          width={2000}
+          height={1125}
+          sizes="(min-width: 1024px) 40vw, 0px"
+          className="hidden w-full lg:block"
+          style={{
+            maskImage: 'radial-gradient(ellipse at center, black 55%, transparent 98%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 55%, transparent 98%)',
+          }}
+        />
       </div>
 
       {/* Meta row */}

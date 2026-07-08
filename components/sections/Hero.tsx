@@ -113,7 +113,7 @@ function RopeArt({ float }: { float: boolean }) {
         {/* Floating accents */}
         <circle cx="330" cy="146" r="22" fill="#a550ff" filter="url(#neonBlur)" />
         <circle cx="112" cy="525" r="10" fill="#050505" opacity=".7" />
-        <circle cx="592" cy="222" r="12" fill="#bbff00" opacity=".9" />
+        <circle cx="452" cy="56" r="12" fill="#bbff00" opacity=".9" />
 
         {/* Lime pacman — merchant end */}
         <g transform="translate(96 486) rotate(-20)">
@@ -133,10 +133,10 @@ function RopeArt({ float }: { float: boolean }) {
         </g>
       </svg>
 
-      {/* Wire globe ornament */}
+      {/* Wire globe ornament — physical position: the art never mirrors in RTL */}
       <svg
         viewBox="0 0 160 160"
-        className="absolute start-4 top-4 hidden h-36 w-36 opacity-45 xl:block"
+        className="absolute left-4 top-4 hidden h-36 w-36 opacity-45 xl:block"
       >
         <circle cx="80" cy="80" r="72" fill="none" stroke="#111" strokeWidth="1.1" />
         <ellipse cx="80" cy="80" rx="30" ry="72" fill="none" stroke="#111" strokeWidth="1" />
@@ -144,8 +144,8 @@ function RopeArt({ float }: { float: boolean }) {
         <path d="M8 80h144M18 45h124M18 115h124M80 8v144" fill="none" stroke="#111" strokeWidth="1" />
       </svg>
 
-      {/* Orbiting badge */}
-      <div className="absolute bottom-6 end-10 hidden h-[118px] w-[118px] md:block">
+      {/* Orbiting badge — physical position + LTR so the textPath renders */}
+      <div dir="ltr" className="absolute bottom-6 right-10 hidden h-[118px] w-[118px] md:block">
         <div className="absolute inset-0 rounded-full bg-lime-hot shadow-[0_18px_30px_rgb(0_0_0/0.14)]" />
         <svg viewBox="0 0 120 120" className="spin-slow absolute inset-0 h-full w-full">
           <defs>

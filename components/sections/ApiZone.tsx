@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { Reveal } from '@/components/motion/Reveal';
 
@@ -63,12 +64,20 @@ export async function ApiZone() {
 
   return (
     <section id="api" className="wrap py-20 lg:py-28">
-      <Reveal className="mb-12 flex flex-wrap items-end justify-between gap-4">
+      <Reveal className="mb-12 flex flex-wrap items-end justify-between gap-6">
         <div>
           <span className="mono-label text-muted">{t('label')}</span>
           <h2 className="display mt-3 text-[clamp(36px,4.6vw,60px)]">{t('heading')}</h2>
           <p className="mt-4 max-w-[420px] font-medium text-ink-soft">{t('sub')}</p>
         </div>
+        <Image
+          src="/brand/icon-3d.png"
+          alt=""
+          aria-hidden="true"
+          width={640}
+          height={640}
+          className="hidden w-24 rotate-6 drop-shadow-[0_16px_24px_rgb(0_0_0/0.18)] md:block lg:w-28"
+        />
       </Reveal>
 
       <div className="grid items-stretch gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
