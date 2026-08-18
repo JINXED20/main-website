@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
-import { Logo } from '@/components/ui/Logo';
 import { ArrowUpRight } from '@/components/ui/icons';
 
 const FOOTER_LINKS = [
@@ -63,7 +62,14 @@ export async function Footer() {
       <div className="border-t border-white/15">
         <div className="wrap grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr_auto]">
           <div className="flex flex-col items-start gap-4">
-            <Logo inverted className="text-[26px]" />
+            {/* Stacked OX lockup, inverted export (black shapes → white) for the dark footer */}
+            {/* eslint-disable-next-line @next/next/no-img-element -- static brand SVG */}
+            <img
+              src="/brand/ordex-lockup-inverted.svg"
+              alt="Ordex"
+              dir="ltr"
+              className="h-24 w-auto"
+            />
             <p className="text-sm leading-relaxed text-white/60">{t('footer.tagline')}</p>
           </div>
 
