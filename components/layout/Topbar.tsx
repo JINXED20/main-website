@@ -10,7 +10,7 @@ const NAV_ITEMS = [
   { key: 'platform', href: '#platform' },
   { key: 'audience', href: '#audience' },
   { key: 'developers', href: '#api' },
-  { key: 'pricing', href: '#pricing' },
+  // { key: 'pricing', href: '#pricing' }, // hidden with the Pricing section
   { key: 'faq', href: '#faq' },
 ] as const;
 

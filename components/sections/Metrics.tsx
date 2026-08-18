@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useInView, useReducedMotion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
-const KEYS = ['m1', 'm2', 'm3', 'm4'] as const;
+// 'm1' ("14 governorates covered") hidden — unverified coverage claim.
+// Restore it (and lg:grid-cols-4 below) once real coverage is confirmed.
+const KEYS = ['m2', 'm3', 'm4'] as const;
 
 function CountUp({
   target,
@@ -48,7 +50,7 @@ export function Metrics() {
     <section aria-label="Ordex key metrics" className="border-y border-line">
       <div
         ref={ref}
-        className="wrap grid grid-cols-2 divide-line max-lg:gap-y-px lg:grid-cols-4 lg:divide-x"
+        className="wrap grid grid-cols-2 divide-line max-lg:gap-y-px lg:grid-cols-3 lg:divide-x"
       >
         {KEYS.map((key) => {
           const raw = t(`${key}.value`);

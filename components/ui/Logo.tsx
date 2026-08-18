@@ -1,6 +1,8 @@
 /**
- * Ordex wordmark — "Ordex" in Archivo Black with the purple full stop.
- * Text-only: crisp at any size, no image assets.
+ * Ordex wordmark.
+ * Light surfaces: the SVG lockup (Pacman-O "ORDEX." artwork, /brand/ordex-wordmark.svg).
+ * Dark surfaces (inverted): still the text version — the SVG has black shapes
+ * that vanish on ink; swap once an inverted SVG export exists.
  */
 
 interface LogoProps {
@@ -11,6 +13,17 @@ interface LogoProps {
 }
 
 export function Logo({ className = '', inverted = false }: LogoProps) {
+  if (!inverted) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element -- static brand SVG, no optimization needed
+      <img
+        src="/brand/ordex-wordmark.svg"
+        alt="Ordex"
+        dir="ltr"
+        className={`inline-block h-[1.2em] w-auto ${className}`}
+      />
+    );
+  }
   return (
     // Always LTR — the latin lockup must not mirror on the Arabic site.
     <span

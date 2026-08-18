@@ -59,7 +59,7 @@
     "f3": {
       "title": "Store connect",
       "tag": "E-commerce · Social",
-      "desc": "Salla, Zid, Shopify, WooCommerce or Instagram DMs — orders flow in from wherever you sell."
+      "desc": "Your online store, social storefront, or custom backend — orders flow in from wherever you sell."
     },
     "f4": {
       "title": "Tracking + COD",
@@ -81,7 +81,7 @@
     },
     "a3": {
       "title": "E-commerce platforms",
-      "desc": "Connect Shopify, WooCommerce, Salla, or a custom backend with clean endpoints and webhooks."
+      "desc": "Connect your store or custom backend with clean endpoints and webhooks."
     },
     "a4": {
       "title": "Enterprise B2B",
@@ -155,18 +155,29 @@
     "q1": "How is Ordex different from using carriers directly?",
     "a1": "One contract, one API, one dashboard for every order — instead of stitching together separate carrier portals, spreadsheets, and phone calls.",
     "q2": "Do you cover all of Syria?",
-    "a2": "The platform is built around all 14 governorates, with routing by fastest, cheapest, or closest carrier preference.",
+    "a2": "Coverage grows with our carrier network — for every destination, routing picks the fastest, cheapest, or closest available carrier.",
     "q3": "How does cash on delivery work?",
-    "a3": "Ordex aggregates carrier settlements into one wallet with daily ledger entries and reconciliation views, with a 5% variance tolerance before an order is flagged.",
+    "a3": "Ordex aggregates carrier settlements into one wallet with daily ledger entries and reconciliation views — any mismatch is flagged for review.",
     "q4": "Is this too much for a small shop?",
-    "a4": "No. The Starter flow is designed for a one-person Instagram shop — no website and no engineering team needed.",
+    "a4": "No. Ordex works for a one-person Instagram shop — no website and no engineering team needed.",
     "q5": "Can a carrier without any software join?",
     "a5": "Yes. Ordex Carrier OS gives them a driver app, dispatch board, GPS tracking, and COD tools for free — in exchange for carrying merchant orders routed through Ordex."
   },
   "footer": {
     "big": "Start shipping <mark>tonight</mark>",
-    "ctaEmail": "hello@tryordex.com",
-    "phone": "+963 944 123 456",
+    "ctaEmail": "info@tryordex.com",
+    "founder1": {
+      "name": "Basel Uneisi",
+      "role": "Co-Founder",
+      "phone": "+963 992 044 876",
+      "email": "baseluneisi@tryordex.com"
+    },
+    "founder2": {
+      "name": "Abduljabbar Al-Barazi",
+      "role": "Co-Founder",
+      "phone": "+963 964 606 440",
+      "email": "abduljabbar-albarazi@tryordex.com"
+    },
     "city": "Damascus, Syria",
     "tagline": "Orders, expertly routed.",
     "linksLabel": "Site",

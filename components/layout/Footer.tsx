@@ -7,7 +7,7 @@ const FOOTER_LINKS = [
   { key: 'platform', href: '#platform' },
   { key: 'audience', href: '#audience' },
   { key: 'developers', href: '#api' },
-  { key: 'pricing', href: '#pricing' },
+  // { key: 'pricing', href: '#pricing' }, // hidden with the Pricing section
   { key: 'faq', href: '#faq' },
 ] as const;
 
@@ -69,7 +69,7 @@ export async function Footer() {
 
           <div>
             <h3 className="mono-label mb-4 text-lime">{t('footer.contactLabel')}</h3>
-            <ul className="space-y-2 text-sm text-white/75">
+            <ul className="space-y-4 text-sm text-white/75">
               <li>
                 <a
                   href={`mailto:${t('footer.ctaEmail')}`}
@@ -79,15 +79,27 @@ export async function Footer() {
                   {t('footer.ctaEmail')}
                 </a>
               </li>
-              <li>
-                <a
-                  href={`tel:${t('footer.phone').replace(/\s/g, '')}`}
-                  dir="ltr"
-                  className="inline-block cursor-pointer tabular-nums transition-colors hover:text-lime"
-                >
-                  {t('footer.phone')}
-                </a>
-              </li>
+              {(['founder2', 'founder1'] as const).map((key) => (
+                <li key={key} className="space-y-1">
+                  <p className="font-semibold text-white">
+                    {t(`footer.${key}.name`)} · {t(`footer.${key}.role`)}
+                  </p>
+                  <a
+                    href={`tel:${t(`footer.${key}.phone`).replace(/\s/g, '')}`}
+                    dir="ltr"
+                    className="block cursor-pointer tabular-nums transition-colors hover:text-lime"
+                  >
+                    {t(`footer.${key}.phone`)}
+                  </a>
+                  <a
+                    href={`mailto:${t(`footer.${key}.email`)}`}
+                    dir="ltr"
+                    className="block cursor-pointer break-all transition-colors hover:text-lime"
+                  >
+                    {t(`footer.${key}.email`)}
+                  </a>
+                </li>
+              ))}
               <li>{t('footer.city')}</li>
             </ul>
           </div>

@@ -2,12 +2,14 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { Reveal } from '@/components/motion/Reveal';
 
-const ROWS = [
-  { key: 'r1', dot: 'bg-lime' },
-  { key: 'r2', dot: 'bg-purple' },
-  { key: 'r3', dot: 'bg-purple' },
-  { key: 'r4', dot: 'bg-white ring-1 ring-ink' },
-] as const;
+// Demo rows for the "Today's orders" widget — sample data, not real orders.
+// Disabled until it can show real (or clearly-labeled example) data.
+// const ROWS = [
+//   { key: 'r1', dot: 'bg-lime' },
+//   { key: 'r2', dot: 'bg-purple' },
+//   { key: 'r3', dot: 'bg-purple' },
+//   { key: 'r4', dot: 'bg-white ring-1 ring-ink' },
+// ] as const;
 
 /* Syntax palette on ink: keyword lime · string amber · property purple · comment gray */
 const C = {
@@ -80,10 +82,15 @@ export async function ApiZone() {
         />
       </Reveal>
 
-      <div className="grid items-stretch gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
-        <Reveal className="min-w-0">
+      <div className="grid items-stretch gap-10">
+        <Reveal className="min-w-0 lg:max-w-[760px]">
           <CodeCard comment1={t('comment1')} comment2={t('comment2')} />
         </Reveal>
+
+        {/* "Today's orders · LIVE" widget — hidden: the rows were sample data
+            presented as a live feed. Re-enable (and restore ROWS above plus the
+            two-column grid `lg:grid-cols-[0.95fr_1.05fr] lg:gap-12`) once it
+            shows real orders or is relabeled as an example.
 
         <Reveal delay={0.12} className="min-w-0">
           <div className="flex h-full flex-col gap-4 border border-line bg-paper p-7">
@@ -120,6 +127,7 @@ export async function ApiZone() {
             </div>
           </div>
         </Reveal>
+        */}
       </div>
     </section>
   );
