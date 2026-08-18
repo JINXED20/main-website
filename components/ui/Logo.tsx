@@ -17,10 +17,10 @@ export function Logo({ className = '', inverted = false }: LogoProps) {
     return (
       // eslint-disable-next-line @next/next/no-img-element -- static brand SVG, no optimization needed
       <img
-        src="/brand/ordex-wordmark.svg"
+        src="/brand/ordex-mark.svg"
         alt="Ordex"
         dir="ltr"
-        className={`inline-block h-[1.2em] w-auto ${className}`}
+        className={`inline-block h-[1.4em] w-auto ${className}`}
       />
     );
   }
