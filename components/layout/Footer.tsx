@@ -91,13 +91,6 @@ export async function Footer() {
                     {t(`footer.${key}.name`)} · {t(`footer.${key}.role`)}
                   </p>
                   <a
-                    href={`tel:${t(`footer.${key}.phone`).replace(/\s/g, '')}`}
-                    dir="ltr"
-                    className="block cursor-pointer tabular-nums transition-colors hover:text-lime"
-                  >
-                    {t(`footer.${key}.phone`)}
-                  </a>
-                  <a
                     href={`mailto:${t(`footer.${key}.email`)}`}
                     dir="ltr"
                     className="block cursor-pointer break-all transition-colors hover:text-lime"
