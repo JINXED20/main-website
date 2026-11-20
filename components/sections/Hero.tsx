@@ -18,12 +18,15 @@ function RopeArt({ float, orbitLabel, rtl }: RopeArtProps) {
   const labelFont = rtl ? 'var(--font-arabic), sans-serif' : 'var(--font-geist-mono), monospace';
 
   return (
-    <motion.div
+    // Float runs as a CSS transform animation (compositor thread). framer-motion 12's
+    // `y` shorthand animates on the main thread and competed with hydration.
+    <div
       aria-hidden="true"
-      className="pointer-events-none relative h-full min-h-[360px] select-none md:min-h-[460px] lg:min-h-0 lg:self-stretch"
-      animate={float ? { y: [0, -12, 0] } : undefined}
-      transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+      className={`pointer-events-none relative h-full min-h-[360px] select-none md:min-h-[460px] lg:min-h-0 lg:self-stretch ${
+        float ? 'float-slow' : ''
+      }`}
     >
+      {/* Static rope: heavy blur filters, painted once */}
       <svg
         viewBox="0 0 700 640"
         className="absolute inset-0 h-full w-full overflow-visible"
@@ -108,7 +111,15 @@ function RopeArt({ float, orbitLabel, rtl }: RopeArtProps) {
           strokeLinejoin="round"
           style={{ opacity: 0.14, mixBlendMode: 'multiply' }}
         />
-        {/* Parcel flow — dashes traveling from merchant to carrier */}
+      </svg>
+
+      {/* Parcel flow on its own unfiltered layer. In the same SVG, every dash
+          step repainted the blurred rope too, every frame. */}
+      <svg
+        viewBox="0 0 700 640"
+        className="absolute inset-0 h-full w-full overflow-visible"
+        role="presentation"
+      >
         <path
           d={ROPE_PATH}
           fill="none"
@@ -118,7 +129,14 @@ function RopeArt({ float, orbitLabel, rtl }: RopeArtProps) {
           className="rope-flow"
           opacity=".85"
         />
+      </svg>
 
+      {/* Accents and pacmen above the dashes, static */}
+      <svg
+        viewBox="0 0 700 640"
+        className="absolute inset-0 h-full w-full overflow-visible"
+        role="presentation"
+      >
         {/* Floating accents */}
         <circle cx="330" cy="146" r="22" fill="#a550ff" filter="url(#neonBlur)" />
         <circle cx="112" cy="525" r="10" fill="#050505" opacity=".7" />
@@ -181,7 +199,7 @@ function RopeArt({ float, orbitLabel, rtl }: RopeArtProps) {
           </span>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
