@@ -10,6 +10,8 @@ on:
 
 jobs:
   mirror:
+    # The personal repo receives this file too; only mirror from the org repo.
+    if: github.repository == 'Ordex-team/Ordex-website'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout full history
