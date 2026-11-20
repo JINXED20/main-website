@@ -47,7 +47,7 @@ export function Metrics() {
   const reduce = useReducedMotion();
 
   return (
-    <section aria-label="Ordex key metrics" className="border-y border-line">
+    <section aria-label={t('aria')} className="border-y border-line">
       <div
         ref={ref}
         className="wrap grid grid-cols-2 divide-line max-lg:gap-y-px lg:grid-cols-3 lg:divide-x"

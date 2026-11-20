@@ -7,6 +7,9 @@ import { routing } from '@/i18n/routing';
 import { Topbar } from '@/components/layout/Topbar';
 import { Footer } from '@/components/layout/Footer';
 import { Clarity } from '@/components/layout/Clarity';
+import { Analytics } from '@vercel/analytics/next';
+import { CtaTracker } from '@/components/analytics/CtaTracker';
+import { CONTACT_EMAIL, CONTACT_PHONES, SITE_URL } from '@/lib/site';
 
 const archivoBlack = Archivo_Black({
   weight: '400',
@@ -33,6 +36,8 @@ const kufiArabic = Noto_Kufi_Arabic({
   subsets: ['arabic'],
   variable: '--font-arabic-display',
   display: 'swap',
+  // Only /ar renders Arabic glyphs; unicode-range keeps /en from downloading it
+  preload: false,
 });
 
 // Arabic body/UI: Cairo — modern geometric sans, the Levant e-commerce standard
@@ -40,9 +45,9 @@ const cairo = Cairo({
   subsets: ['arabic'],
   variable: '--font-arabic',
   display: 'swap',
+  // Only /ar renders Arabic glyphs; unicode-range keeps /en from downloading it
+  preload: false,
 });
-
-const BASE_URL = 'https://tryordex.com';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -57,7 +62,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'meta' });
 
   return {
-    metadataBase: new URL(BASE_URL),
+    metadataBase: new URL(SITE_URL),
     title: t('title'),
     description: t('description'),
     alternates: {
@@ -107,9 +112,16 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Ordex',
-    url: BASE_URL,
-    logo: `${BASE_URL}/brand/ordex-logo.svg`,
-    email: 'hello@tryordex.com',
+    url: SITE_URL,
+    logo: `${SITE_URL}/brand/ordex-logo.svg`,
+    email: CONTACT_EMAIL,
+    contactPoint: CONTACT_PHONES.map((telephone) => ({
+      '@type': 'ContactPoint',
+      telephone,
+      contactType: 'customer service',
+      areaServed: 'SY',
+      availableLanguage: ['Arabic', 'English'],
+    })),
     address: { '@type': 'PostalAddress', addressLocality: 'Damascus', addressCountry: 'SY' },
   };
 
@@ -127,7 +139,9 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
           <Topbar />
           <main id="main">{children}</main>
           <Footer />
+          <CtaTracker />
         </NextIntlClientProvider>
+        <Analytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

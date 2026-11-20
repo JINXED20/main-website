@@ -28,7 +28,7 @@ export async function Footer() {
             <span className="text-purple">.</span>
           </h2>
           <div className="mt-9 flex flex-wrap items-center gap-6">
-            <a href="#api" className="btn btn-lime inline-flex">
+            <a href="#start" data-cta="footer" className="btn btn-lime inline-flex">
               {t('nav.cta')}
               <ArrowUpRight className="h-4 w-4" />
             </a>

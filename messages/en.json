@@ -8,6 +8,8 @@
     "menuOpen": "Open menu",
     "menuClose": "Close menu",
     "langSwitch": "التبديل إلى العربية",
+    "navPrimary": "Primary",
+    "navMobile": "Mobile",
     "home": "Ordex — home"
   },
   "nav": {
@@ -16,7 +18,7 @@
     "developers": "Developers",
     "pricing": "Pricing",
     "faq": "FAQ",
-    "cta": "Get API key"
+    "cta": "Start shipping"
   },
   "lang": {
     "label": "عربي"
@@ -27,10 +29,12 @@
     "line2": "Every carrier.",
     "line3": "One gateway.",
     "sub": "Ordex plugs your store into every carrier in Syria. We route, dispatch, track, and reconcile cash on delivery — while you keep selling.",
-    "cta1": "Get API key",
-    "cta2": "See the platform"
+    "cta1": "Start shipping",
+    "orbit": "Ship with Ordex • Carrier OS • One API •",
+    "cta2": "Join as a carrier"
   },
   "metrics": {
+    "aria": "Ordex key metrics",
     "m1": { "value": "14", "prefix": "", "suffix": "", "label": "Governorates covered" },
     "m2": { "value": "200", "prefix": "<", "suffix": "ms", "label": "Routing decision" },
     "m3": { "value": "1", "prefix": "", "suffix": "", "label": "API for every carrier" },
@@ -94,6 +98,8 @@
     "sub": "A clean REST API with webhooks. Sandbox keys in minutes, not meetings.",
     "comment1": "Create a delivery in one call",
     "comment2": "Routed to the right carrier in under 200ms",
+    "cta": "Request API access",
+    "codeLabel": "Ordex API code example: create a delivery in one call",
     "dash": {
       "title": "Today's orders",
       "live": "Live",
@@ -147,6 +153,54 @@
         "4": "White-label tracking"
       },
       "cta": "Book a demo"
+    }
+  },
+  "start": {
+    "label": "Get started",
+    "headingA": "Ship with Ordex.",
+    "headingB": "Or carry with us.",
+    "sub": "Tell us who you are and we'll reply on WhatsApp. Merchants get set up with carriers; delivery companies get Carrier OS for free.",
+    "whatsappDirect": "Or message us on WhatsApp",
+    "waHello": "Hi Ordex! I'd like to know more.",
+    "typeLabel": "I am a",
+    "type": {
+      "merchant": "Merchant / store",
+      "carrier": "Delivery company"
+    },
+    "name": "Your name",
+    "phone": "Phone",
+    "business": {
+      "merchant": "Store name",
+      "carrier": "Company name"
+    },
+    "city": "City",
+    "cityPlaceholder": "Choose a governorate",
+    "submit": {
+      "merchant": "Start shipping",
+      "carrier": "Join as a carrier"
+    },
+    "note": "Opens WhatsApp with your details filled in.",
+    "sent": "WhatsApp opened in a new tab. Tap Send there to reach us.",
+    "sentRetry": "Didn't open? Try again",
+    "msg": {
+      "merchant": "Hi Ordex! I'm a merchant and I want to start shipping with Ordex.",
+      "carrier": "Hi Ordex! We're a delivery company and we want to join Ordex."
+    },
+    "gov": {
+      "damascus": "Damascus",
+      "rifDimashq": "Rif Dimashq",
+      "aleppo": "Aleppo",
+      "homs": "Homs",
+      "hama": "Hama",
+      "latakia": "Latakia",
+      "tartus": "Tartus",
+      "idlib": "Idlib",
+      "daraa": "Daraa",
+      "suwayda": "As-Suwayda",
+      "quneitra": "Quneitra",
+      "deirEzZor": "Deir ez-Zor",
+      "raqqa": "Raqqa",
+      "hasakah": "Al-Hasakah"
     }
   },
   "faq": {

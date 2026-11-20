@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { Reveal } from '@/components/motion/Reveal';
+import { ArrowUpRight } from '@/components/ui/icons';
 
 // Demo rows for the "Today's orders" widget — sample data, not real orders.
 // Disabled until it can show real (or clearly-labeled example) data.
@@ -20,12 +21,20 @@ const C = {
   punc: 'text-white/60',
 } as const;
 
-function CodeCard({ comment1, comment2 }: { comment1: string; comment2: string }) {
+function CodeCard({
+  comment1,
+  comment2,
+  label,
+}: {
+  comment1: string;
+  comment2: string;
+  label: string;
+}) {
   return (
     <div
       className="force-ltr min-h-[380px] overflow-x-auto bg-ink p-7 font-mono text-[13px] leading-[1.9] text-[#dddddd] shadow-[12px_12px_0_var(--color-lime)]"
       role="img"
-      aria-label="Ordex API code example: create a delivery in one call"
+      aria-label={label}
     >
       <pre className="font-mono">
         <code>
@@ -71,6 +80,10 @@ export async function ApiZone() {
           <span className="mono-label text-muted">{t('label')}</span>
           <h2 className="display mt-3 text-[clamp(36px,4.6vw,60px)]">{t('heading')}</h2>
           <p className="mt-4 max-w-[420px] font-medium text-ink-soft">{t('sub')}</p>
+          <a href="#start" data-cta="api_access" className="btn btn-ink mt-7 inline-flex">
+            {t('cta')}
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
         </div>
         <Image
           src="/brand/icon-3d.png"
@@ -84,7 +97,7 @@ export async function ApiZone() {
 
       <div className="grid items-stretch gap-10">
         <Reveal className="min-w-0 lg:max-w-[760px]">
-          <CodeCard comment1={t('comment1')} comment2={t('comment2')} />
+          <CodeCard comment1={t('comment1')} comment2={t('comment2')} label={t('codeLabel')} />
         </Reveal>
 
         {/* "Today's orders · LIVE" widget — hidden: the rows were sample data

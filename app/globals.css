@@ -305,6 +305,29 @@
   animation: rope-flow 6s linear infinite;
 }
 
+/* Hero art float — transform only, so it stays on the compositor */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-slow,
+  .rope-flow,
+  .spin-slow {
+    animation: none;
+  }
+}
+
 /* Orbiting badge text spin */
 @keyframes spin-slow {
   to {
@@ -327,6 +350,29 @@
 
 .faq-item[open] summary .faq-plus {
   transform: rotate(45deg);
+}
+
+/* Smooth open/close. Browsers without ::details-content keep the instant toggle. */
+.faq-item {
+  interpolate-size: allow-keywords;
+}
+
+.faq-item::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition:
+    block-size 320ms var(--ease-out-expo),
+    content-visibility 320ms allow-discrete;
+}
+
+.faq-item[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-item::details-content {
+    transition: none;
+  }
 }
 
 /* Skip link */

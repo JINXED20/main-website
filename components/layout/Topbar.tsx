@@ -45,7 +45,7 @@ export function Topbar() {
         </a>
 
         {/* Desktop nav */}
-        <nav aria-label="Primary" className="hidden lg:block">
+        <nav aria-label={t('a11y.navPrimary')} className="hidden lg:block">
           <ul className="flex items-center gap-9">
             {NAV_ITEMS.map(({ key, href }) => (
               <li key={key}>
@@ -62,7 +62,7 @@ export function Topbar() {
 
         <div className="flex items-center gap-3">
           <LanguageSwitcher className="hidden sm:inline-flex" />
-          <a href="#api" className="btn btn-ink hidden md:inline-flex">
+          <a href="#start" data-cta="nav" className="btn btn-ink hidden md:inline-flex">
             {t('nav.cta')}
             <ArrowUpRight className="h-4 w-4" />
           </a>
@@ -85,7 +85,7 @@ export function Topbar() {
         hidden={!open}
         className="border-t border-ink/10 bg-card lg:hidden"
       >
-        <nav aria-label="Mobile" className="wrap py-6">
+        <nav aria-label={t('a11y.navMobile')} className="wrap py-6">
           <ul className="flex flex-col">
             {NAV_ITEMS.map(({ key, href }) => (
               <li key={key} className="border-b border-line last:border-0">
@@ -101,7 +101,7 @@ export function Topbar() {
             ))}
           </ul>
           <div className="mt-6 flex items-center gap-3">
-            <a href="#api" onClick={close} className="btn btn-lime flex flex-1 justify-center">
+            <a href="#start" data-cta="nav_mobile" onClick={close} className="btn btn-lime flex flex-1 justify-center">
               {t('nav.cta')}
               <ArrowUpRight className="h-4 w-4" />
             </a>
