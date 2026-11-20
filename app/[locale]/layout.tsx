@@ -6,6 +6,7 @@ import { Archivo, Archivo_Black, Cairo, Geist_Mono, Noto_Kufi_Arabic } from 'nex
 import { routing } from '@/i18n/routing';
 import { Topbar } from '@/components/layout/Topbar';
 import { Footer } from '@/components/layout/Footer';
+import { Clarity } from '@/components/layout/Clarity';
 
 const archivoBlack = Archivo_Black({
   weight: '400',
@@ -131,6 +132,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <Clarity locale={locale} />
       </body>
     </html>
   );
