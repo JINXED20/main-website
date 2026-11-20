@@ -7,6 +7,7 @@ import { routing } from '@/i18n/routing';
 import { Topbar } from '@/components/layout/Topbar';
 import { Footer } from '@/components/layout/Footer';
 import { Clarity } from '@/components/layout/Clarity';
+import { REVEAL_SCRIPT } from '@/components/motion/Reveal';
 import { Analytics } from '@vercel/analytics/next';
 import { CtaTracker } from '@/components/analytics/CtaTracker';
 import { CONTACT_EMAIL, CONTACT_PHONES, SITE_URL } from '@/lib/site';
@@ -129,8 +130,13 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <html
       lang={locale}
       dir={isRtl ? 'rtl' : 'ltr'}
+      // REVEAL_SCRIPT adds class="js" before hydration
+      suppressHydrationWarning
       className={`${archivoBlack.variable} ${archivo.variable} ${geistMono.variable} ${kufiArabic.variable} ${cairo.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: REVEAL_SCRIPT }} />
+      </head>
       <body>
         <NextIntlClientProvider messages={messages}>
           <a href="#main" className="skip-link">

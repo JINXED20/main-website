@@ -1,7 +1,5 @@
-'use client';
-
-import { motion, useReducedMotion } from 'framer-motion';
-import { useLocale, useTranslations } from 'next-intl';
+import type { CSSProperties } from 'react';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { ArrowUpRight } from '@/components/ui/icons';
 
 const ROPE_PATH =
@@ -203,23 +201,12 @@ function RopeArt({ float, orbitLabel, rtl }: RopeArtProps) {
   );
 }
 
-export function Hero() {
-  const t = useTranslations();
-  const rtl = useLocale() === 'ar';
-  const reduce = useReducedMotion();
+/** Stagger delay for the CSS entrance (.hero-rise in globals.css) */
+const at = (seconds: number) => ({ '--d': `${seconds}s` }) as CSSProperties;
 
-  const container = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.09, delayChildren: 0.1 } },
-  };
-  const line = {
-    hidden: { opacity: 0, y: reduce ? 0 : 46 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
-    },
-  };
+export async function Hero() {
+  const t = await getTranslations();
+  const rtl = (await getLocale()) === 'ar';
 
   return (
     <section id="top" className="relative overflow-hidden">
@@ -236,47 +223,37 @@ export function Hero() {
       {/* Fits in one viewport on desktop: headline scales with vw AND vh */}
       <div className="wrap relative grid grid-cols-[minmax(0,1fr)] gap-8 py-10 lg:min-h-[calc(100dvh-76px)] lg:grid-cols-[46%_54%] lg:items-center lg:py-6">
         <div className="relative z-10 flex flex-col items-start">
-          <motion.span
-            initial={{ opacity: 0, y: reduce ? 0 : 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mono-label inline-flex items-center gap-2.5 bg-lime-hot px-3.5 py-2 text-ink"
+          {/* Entrance is pure CSS: plays at first paint, before (or without) JS */}
+          <span
+            style={{ ...at(0), '--rise': '12px' } as CSSProperties}
+            className="hero-rise mono-label inline-flex items-center gap-2.5 bg-lime-hot px-3.5 py-2 text-ink"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-ink" aria-hidden="true" />
             {t('hero.eyebrow')}
-          </motion.span>
+          </span>
 
-          <motion.h1
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="display mt-6 text-[clamp(48px,min(8.6vw,8.5vh),124px)]"
-          >
-            <motion.span variants={line} className="block">
+          <h1 className="display mt-6 text-[clamp(48px,min(8.6vw,8.5vh),124px)]">
+            <span style={at(0.1)} className="hero-rise block">
               {t('hero.line1')}
-            </motion.span>
-            <motion.span variants={line} className="block">
+            </span>
+            <span style={at(0.19)} className="hero-rise block">
               {t('hero.line2')}
-            </motion.span>
-            <motion.span variants={line} className="block">
+            </span>
+            <span style={at(0.28)} className="hero-rise block">
               <span className="marker-lime">{t('hero.line3')}</span>
-            </motion.span>
-          </motion.h1>
+            </span>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.45, duration: 0.6 }}
-            className="mt-6 max-w-[400px] text-[17px] font-medium leading-relaxed text-ink-soft"
+          <p
+            style={{ ...at(0.45), '--rise': '0px' } as CSSProperties}
+            className="hero-rise mt-6 max-w-[400px] text-[17px] font-medium leading-relaxed text-ink-soft"
           >
             {t('hero.sub')}
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="mt-8 flex flex-wrap items-center gap-4"
+          <div
+            style={{ ...at(0.6), '--rise': '0px' } as CSSProperties}
+            className="hero-rise mt-8 flex flex-wrap items-center gap-4"
           >
             <a href="#start" data-cta="hero_merchant" className="btn btn-ink inline-flex">
               {t('hero.cta1')}
@@ -292,10 +269,10 @@ export function Hero() {
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </span>
             </a>
-          </motion.div>
+          </div>
         </div>
 
-        <RopeArt float={!reduce} orbitLabel={t('hero.orbit')} rtl={rtl} />
+        <RopeArt float orbitLabel={t('hero.orbit')} rtl={rtl} />
       </div>
     </section>
   );

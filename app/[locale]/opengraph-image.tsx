@@ -1,15 +1,23 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { ImageResponse } from 'next/og';
+import en from '@/messages/en.json';
+import ar from '@/messages/ar.json';
 
-export const size = { width: 1200, height: 630 };
-export const contentType = 'image/png';
-export const alt = 'Ordex — Every order. Every carrier. One gateway.';
+const size = { width: 1200, height: 630 };
+
+// One image per locale, with alt text in that locale (the page title).
+export async function generateImageMetadata({ params }: { params: { locale: string } }) {
+  // Read messages directly: this also runs at build time, outside a request
+  const alt = (params.locale === 'ar' ? ar : en).meta.title;
+  return [{ id: 'og', alt, size, contentType: 'image/png' }];
+}
 
 export default async function OpengraphImage({
   params,
 }: {
   params: Promise<{ locale: string }>;
+  id: Promise<string>;
 }) {
   const { locale } = await params;
 
