@@ -328,6 +328,51 @@
   }
 }
 
+/* Hero entrance — CSS so it plays at first paint without waiting for JS */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise, 46px));
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 800ms var(--ease-out-expo) var(--d, 0s) both;
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise {
+    animation-name: hero-fade;
+  }
+}
+
+/* Scroll reveal (components/motion/Reveal.tsx). Only hidden once the inline
+   script has added html.js, so server HTML stays readable without JS. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 28px));
+  transition:
+    opacity 700ms var(--ease-out-expo) var(--reveal-delay, 0s),
+    transform 700ms var(--ease-out-expo) var(--reveal-delay, 0s);
+}
+
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    transform: none;
+  }
+}
+
 /* Orbiting badge text spin */
 @keyframes spin-slow {
   to {
