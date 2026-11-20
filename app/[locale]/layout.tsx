@@ -6,6 +6,8 @@ import { Archivo, Archivo_Black, Cairo, Geist_Mono, Noto_Kufi_Arabic } from 'nex
 import { routing } from '@/i18n/routing';
 import { Topbar } from '@/components/layout/Topbar';
 import { Footer } from '@/components/layout/Footer';
+import { Analytics } from '@vercel/analytics/next';
+import { CtaTracker } from '@/components/analytics/CtaTracker';
 import { CONTACT_EMAIL, CONTACT_PHONES, SITE_URL } from '@/lib/site';
 
 const archivoBlack = Archivo_Black({
@@ -132,7 +134,9 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
           <Topbar />
           <main id="main">{children}</main>
           <Footer />
+          <CtaTracker />
         </NextIntlClientProvider>
+        <Analytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

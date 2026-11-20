@@ -62,7 +62,7 @@ export function Topbar() {
 
         <div className="flex items-center gap-3">
           <LanguageSwitcher className="hidden sm:inline-flex" />
-          <a href="#api" className="btn btn-ink hidden md:inline-flex">
+          <a href="#start" data-cta="nav" className="btn btn-ink hidden md:inline-flex">
             {t('nav.cta')}
             <ArrowUpRight className="h-4 w-4" />
           </a>
@@ -101,7 +101,7 @@ export function Topbar() {
             ))}
           </ul>
           <div className="mt-6 flex items-center gap-3">
-            <a href="#api" onClick={close} className="btn btn-lime flex flex-1 justify-center">
+            <a href="#start" data-cta="nav_mobile" onClick={close} className="btn btn-lime flex flex-1 justify-center">
               {t('nav.cta')}
               <ArrowUpRight className="h-4 w-4" />
             </a>

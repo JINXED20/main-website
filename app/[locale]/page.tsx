@@ -6,6 +6,7 @@ import { Flows } from '@/components/sections/Flows';
 import { Audience } from '@/components/sections/Audience';
 import { ApiZone } from '@/components/sections/ApiZone';
 // import { Pricing } from '@/components/sections/Pricing'; // hidden with the section below
+import { Start } from '@/components/sections/Start';
 import { Faq } from '@/components/sections/Faq';
 
 interface HomePageProps {
@@ -24,6 +25,7 @@ export default async function HomePage({ params }: HomePageProps) {
       <Flows />
       <Audience />
       <ApiZone />
+      <Start />
       {/* Pricing hidden — the 600/800 SYP per-delivery figures were placeholder
           numbers, not real rates. Re-enable (plus the "pricing" nav items in
           Topbar and Footer) once real pricing is confirmed. */}
