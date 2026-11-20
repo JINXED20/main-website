@@ -86,16 +86,13 @@ export async function Footer() {
                 </a>
               </li>
               {(['founder2', 'founder1'] as const).map((key) => (
-                <li key={key} className="space-y-1">
-                  <p className="font-semibold text-white">
-                    {t(`footer.${key}.name`)} · {t(`footer.${key}.role`)}
-                  </p>
+                <li key={key}>
                   <a
-                    href={`mailto:${t(`footer.${key}.email`)}`}
+                    href={`tel:${t(`footer.${key}.phone`).replace(/\s/g, '')}`}
                     dir="ltr"
-                    className="block cursor-pointer break-all transition-colors hover:text-lime"
+                    className="cursor-pointer tabular-nums transition-colors hover:text-lime"
                   >
-                    {t(`footer.${key}.email`)}
+                    {t(`footer.${key}.phone`)}
                   </a>
                 </li>
               ))}
