@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { ArrowUpRight } from '@/components/ui/icons';
 
 // The road: merchant (bottom-left) → carrier (top-right)
@@ -20,7 +20,18 @@ function pacmanPath(r: number, mouth: number) {
   return `M0 0 L${x.toFixed(2)} ${(-y).toFixed(2)} A${r} ${r} 0 1 0 ${x.toFixed(2)} ${y.toFixed(2)} Z`;
 }
 
-function RopeArt({ animate }: { animate: boolean }) {
+interface RopeArtProps {
+  animate: boolean;
+  orderLabel: string;
+  orbitLabel: string;
+  rtl: boolean;
+}
+
+function RopeArt({ animate, orderLabel, orbitLabel, rtl }: RopeArtProps) {
+  // Arabic must not be letter-spaced (it breaks the joins) and needs an Arabic face
+  const labelFont = rtl ? 'var(--font-arabic), sans-serif' : 'var(--font-geist-mono), monospace';
+  const labelSpacing = rtl ? '0' : undefined;
+
   // Road points sampled once (1 unit apart) so render never touches the DOM
   const [samples, setSamples] = useState<{ x: number; y: number }[]>([]);
   const len = Math.max(samples.length - 1, 0);
@@ -163,13 +174,14 @@ function RopeArt({ animate }: { animate: boolean }) {
               dy="7"
               style={{
                 fontSize: '19px',
-                fontFamily: 'var(--font-geist-mono), monospace',
+                fontFamily: labelFont,
                 fontWeight: 700,
-                letterSpacing: '0.06em',
+                letterSpacing: labelSpacing ?? '0.06em',
               }}
               fill="#050505"
+              direction={rtl ? 'rtl' : 'ltr'}
             >
-              +1 ORDER
+              {orderLabel}
             </text>
           </g>
         )}
@@ -199,14 +211,14 @@ function RopeArt({ animate }: { animate: boolean }) {
           </defs>
           <text
             style={{
-              fontSize: '9.2px',
-              fontFamily: 'var(--font-geist-mono), monospace',
+              fontSize: rtl ? '10.5px' : '9.2px',
+              fontFamily: labelFont,
               fontWeight: 700,
-              letterSpacing: '0.2em',
+              letterSpacing: labelSpacing ?? '0.2em',
             }}
             className="fill-ink uppercase"
           >
-            <textPath href="#orbit-circle">Ship with Ordex • Carrier OS • One API •</textPath>
+            <textPath href="#orbit-circle">{orbitLabel}</textPath>
           </text>
         </svg>
         <div className="absolute inset-0 grid place-items-center">
@@ -221,6 +233,7 @@ function RopeArt({ animate }: { animate: boolean }) {
 
 export function Hero() {
   const t = useTranslations();
+  const rtl = useLocale() === 'ar';
   const reduce = useReducedMotion();
 
   const container = {
@@ -309,7 +322,12 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <RopeArt animate={!reduce} />
+        <RopeArt
+          animate={!reduce}
+          orderLabel={t('hero.order')}
+          orbitLabel={t('hero.orbit')}
+          rtl={rtl}
+        />
       </div>
     </section>
   );

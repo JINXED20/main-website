@@ -6,6 +6,7 @@ import { Archivo, Archivo_Black, Cairo, Geist_Mono, Noto_Kufi_Arabic } from 'nex
 import { routing } from '@/i18n/routing';
 import { Topbar } from '@/components/layout/Topbar';
 import { Footer } from '@/components/layout/Footer';
+import { CONTACT_EMAIL, CONTACT_PHONES, SITE_URL } from '@/lib/site';
 
 const archivoBlack = Archivo_Black({
   weight: '400',
@@ -41,8 +42,6 @@ const cairo = Cairo({
   display: 'swap',
 });
 
-const BASE_URL = 'https://tryordex.com';
-
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -56,7 +55,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'meta' });
 
   return {
-    metadataBase: new URL(BASE_URL),
+    metadataBase: new URL(SITE_URL),
     title: t('title'),
     description: t('description'),
     alternates: {
@@ -106,9 +105,16 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Ordex',
-    url: BASE_URL,
-    logo: `${BASE_URL}/brand/ordex-logo.svg`,
-    email: 'hello@tryordex.com',
+    url: SITE_URL,
+    logo: `${SITE_URL}/brand/ordex-logo.svg`,
+    email: CONTACT_EMAIL,
+    contactPoint: CONTACT_PHONES.map((telephone) => ({
+      '@type': 'ContactPoint',
+      telephone,
+      contactType: 'customer service',
+      areaServed: 'SY',
+      availableLanguage: ['Arabic', 'English'],
+    })),
     address: { '@type': 'PostalAddress', addressLocality: 'Damascus', addressCountry: 'SY' },
   };
 

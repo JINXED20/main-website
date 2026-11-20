@@ -8,6 +8,8 @@
     "menuOpen": "Open menu",
     "menuClose": "Close menu",
     "langSwitch": "التبديل إلى العربية",
+    "navPrimary": "Primary",
+    "navMobile": "Mobile",
     "home": "Ordex — home"
   },
   "nav": {
@@ -28,9 +30,12 @@
     "line3": "One gateway.",
     "sub": "Ordex plugs your store into every carrier in Syria. We route, dispatch, track, and reconcile cash on delivery — while you keep selling.",
     "cta1": "Get API key",
+    "orbit": "Ship with Ordex • Carrier OS • One API •",
+    "order": "+1 ORDER",
     "cta2": "See the platform"
   },
   "metrics": {
+    "aria": "Ordex key metrics",
     "m1": { "value": "14", "prefix": "", "suffix": "", "label": "Governorates covered" },
     "m2": { "value": "200", "prefix": "<", "suffix": "ms", "label": "Routing decision" },
     "m3": { "value": "1", "prefix": "", "suffix": "", "label": "API for every carrier" },
@@ -94,6 +99,7 @@
     "sub": "A clean REST API with webhooks. Sandbox keys in minutes, not meetings.",
     "comment1": "Create a delivery in one call",
     "comment2": "Routed to the right carrier in under 200ms",
+    "codeLabel": "Ordex API code example: create a delivery in one call",
     "dash": {
       "title": "Today's orders",
       "live": "Live",

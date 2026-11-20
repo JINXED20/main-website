@@ -45,7 +45,7 @@ export function Topbar() {
         </a>
 
         {/* Desktop nav */}
-        <nav aria-label="Primary" className="hidden lg:block">
+        <nav aria-label={t('a11y.navPrimary')} className="hidden lg:block">
           <ul className="flex items-center gap-9">
             {NAV_ITEMS.map(({ key, href }) => (
               <li key={key}>
@@ -85,7 +85,7 @@ export function Topbar() {
         hidden={!open}
         className="border-t border-ink/10 bg-card lg:hidden"
       >
-        <nav aria-label="Mobile" className="wrap py-6">
+        <nav aria-label={t('a11y.navMobile')} className="wrap py-6">
           <ul className="flex flex-col">
             {NAV_ITEMS.map(({ key, href }) => (
               <li key={key} className="border-b border-line last:border-0">

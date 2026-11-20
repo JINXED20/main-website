@@ -1,10 +1,35 @@
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { ImageResponse } from 'next/og';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 export const alt = 'Ordex — Every order. Every carrier. One gateway.';
 
-export default function OpengraphImage() {
+export default async function OpengraphImage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  // Satori can't shape Arabic, so /ar uses a pre-rendered PNG (og-ar.png, made
+  // in a real browser with Noto Kufi Arabic) in the same layout as below.
+  if (locale === 'ar') {
+    const png = await readFile(join(process.cwd(), 'app/[locale]/og-ar.png'));
+    return new ImageResponse(
+      (
+        <img
+          src={`data:image/png;base64,${png.toString('base64')}`}
+          width={size.width}
+          height={size.height}
+          alt=""
+        />
+      ),
+      size
+    );
+  }
+
   return new ImageResponse(
     (
       <div

@@ -20,12 +20,20 @@ const C = {
   punc: 'text-white/60',
 } as const;
 
-function CodeCard({ comment1, comment2 }: { comment1: string; comment2: string }) {
+function CodeCard({
+  comment1,
+  comment2,
+  label,
+}: {
+  comment1: string;
+  comment2: string;
+  label: string;
+}) {
   return (
     <div
       className="force-ltr min-h-[380px] overflow-x-auto bg-ink p-7 font-mono text-[13px] leading-[1.9] text-[#dddddd] shadow-[12px_12px_0_var(--color-lime)]"
       role="img"
-      aria-label="Ordex API code example: create a delivery in one call"
+      aria-label={label}
     >
       <pre className="font-mono">
         <code>
@@ -84,7 +92,7 @@ export async function ApiZone() {
 
       <div className="grid items-stretch gap-10">
         <Reveal className="min-w-0 lg:max-w-[760px]">
-          <CodeCard comment1={t('comment1')} comment2={t('comment2')} />
+          <CodeCard comment1={t('comment1')} comment2={t('comment2')} label={t('codeLabel')} />
         </Reveal>
 
         {/* "Today's orders · LIVE" widget — hidden: the rows were sample data
