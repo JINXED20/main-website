@@ -35,6 +35,8 @@ const kufiArabic = Noto_Kufi_Arabic({
   subsets: ['arabic'],
   variable: '--font-arabic-display',
   display: 'swap',
+  // Only /ar renders Arabic glyphs; unicode-range keeps /en from downloading it
+  preload: false,
 });
 
 // Arabic body/UI: Cairo — modern geometric sans, the Levant e-commerce standard
@@ -42,6 +44,8 @@ const cairo = Cairo({
   subsets: ['arabic'],
   variable: '--font-arabic',
   display: 'swap',
+  // Only /ar renders Arabic glyphs; unicode-range keeps /en from downloading it
+  preload: false,
 });
 
 export function generateStaticParams() {
