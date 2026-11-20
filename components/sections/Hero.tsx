@@ -1,95 +1,28 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { ArrowUpRight } from '@/components/ui/icons';
 
-// The road: merchant (bottom-left) → carrier (top-right)
-const ROAD_PATH =
-  'M80 520 C250 520, 210 330, 350 330 C490 330, 440 160, 560 160';
-const PARCEL_GAP = 34;
-const TRAVEL_MS = 6000;
-const HANDOFF_MS = 1400; // carrier takes the order, "+1 order" pops
-const LOOP_MS = TRAVEL_MS + HANDOFF_MS;
-const CARRIER_GAP = 58; // pacman stops this far before the carrier
-
-function pacmanPath(r: number, mouth: number) {
-  const x = r * Math.cos(mouth);
-  const y = r * Math.sin(mouth);
-  return `M0 0 L${x.toFixed(2)} ${(-y).toFixed(2)} A${r} ${r} 0 1 0 ${x.toFixed(2)} ${y.toFixed(2)} Z`;
-}
+const ROPE_PATH =
+  'M150 500 C190 395, 118 336, 205 274 C270 228, 335 318, 299 379 C263 440, 310 524, 413 505 C545 482, 568 366, 500 309 C435 254, 470 135, 586 122';
 
 interface RopeArtProps {
-  animate: boolean;
-  orderLabel: string;
+  float: boolean;
   orbitLabel: string;
   rtl: boolean;
 }
 
-function RopeArt({ animate, orderLabel, orbitLabel, rtl }: RopeArtProps) {
+function RopeArt({ float, orbitLabel, rtl }: RopeArtProps) {
   // Arabic must not be letter-spaced (it breaks the joins) and needs an Arabic face
   const labelFont = rtl ? 'var(--font-arabic), sans-serif' : 'var(--font-geist-mono), monospace';
-  const labelSpacing = rtl ? '0' : undefined;
-
-  // Road points sampled once (1 unit apart) so render never touches the DOM
-  const [samples, setSamples] = useState<{ x: number; y: number }[]>([]);
-  const len = Math.max(samples.length - 1, 0);
-  // Position in the loop; reduced motion freezes it mid-road
-  const [elapsed, setElapsed] = useState(TRAVEL_MS * 0.55);
-
-  const measureRoad = useCallback((road: SVGPathElement | null) => {
-    if (!road) return;
-    const total = Math.floor(road.getTotalLength());
-    const pts = [];
-    for (let l = 0; l <= total; l++) {
-      const q = road.getPointAtLength(l);
-      pts.push({ x: q.x, y: q.y });
-    }
-    setSamples(pts);
-  }, []);
-
-  useEffect(() => {
-    if (!animate || !len) return;
-    let raf = 0;
-    const start = performance.now();
-    const tick = (now: number) => {
-      setElapsed((now - start) % LOOP_MS);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [animate, len]);
-
-  const progress = Math.min(elapsed / TRAVEL_MS, 1);
-  // 0 → 1 across the hand-off; 0 while the merchant is still on the road
-  const handoff = Math.max((elapsed - TRAVEL_MS) / HANDOFF_MS, 0);
-  const chomp = (period: number) => 0.08 + 0.55 * Math.abs(Math.sin(elapsed / period));
-  const merchantMouth = animate && handoff === 0 ? chomp(110) : 0.5;
-  const carrierMouth = handoff > 0 && handoff < 0.5 ? chomp(70) : 0.62;
-  // Merchant fades in at the start of a lap and out once it hands over
-  const merchantOpacity = Math.min(elapsed / 300, 1) * (1 - Math.min(handoff * 2, 1));
-
-  const travel = Math.max(len - CARRIER_GAP, 0);
-  const at = progress * travel;
-  const point = (l: number) => samples[Math.round(l)] ?? { x: 0, y: 0 };
-  const p = point(at);
-  const ahead = point(Math.min(at + 1, len));
-  const angle = (Math.atan2(ahead.y - p.y, ahead.x - p.x) * 180) / Math.PI;
-  const end = point(len);
-
-  const parcels: { l: number; x: number; y: number }[] = [];
-  if (len) {
-    for (let l = PARCEL_GAP; l < travel; l += PARCEL_GAP) {
-      const q = point(l);
-      parcels.push({ l, x: q.x, y: q.y });
-    }
-  }
 
   return (
-    <div
+    <motion.div
       aria-hidden="true"
       className="pointer-events-none relative h-full min-h-[360px] select-none md:min-h-[460px] lg:min-h-0 lg:self-stretch"
+      animate={float ? { y: [0, -12, 0] } : undefined}
+      transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
     >
       <svg
         viewBox="0 0 700 640"
@@ -97,106 +30,127 @@ function RopeArt({ animate, orderLabel, orbitLabel, rtl }: RopeArtProps) {
         role="presentation"
       >
         <defs>
-          <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
-            <feDropShadow dx="0" dy="18" stdDeviation="18" floodColor="#000" floodOpacity=".22" />
+          <linearGradient id="ropeGrad" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stopColor="#bbff00" />
+            <stop offset=".3" stopColor="#a550ff" />
+            <stop offset=".55" stopColor="#151515" />
+            <stop offset=".78" stopColor="#bbff00" />
+            <stop offset="1" stopColor="#a550ff" />
+          </linearGradient>
+          <linearGradient id="ropeCore" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stopColor="#a550ff" />
+            <stop offset=".26" stopColor="#141414" />
+            <stop offset=".5" stopColor="#dfff00" />
+            <stop offset=".78" stopColor="#bbff00" />
+            <stop offset="1" stopColor="#a550ff" />
+          </linearGradient>
+          <filter id="neonBlur" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="15" result="blur" />
+            <feColorMatrix
+              in="blur"
+              type="matrix"
+              values="1.6 0 0 0 0  0 1.4 0 0 0  0 0 2.2 0 0  0 0 0 .85 0"
+              result="glow"
+            />
+            <feMerge>
+              <feMergeNode in="glow" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
           </filter>
+          <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="22" stdDeviation="22" floodColor="#000" floodOpacity=".28" />
+          </filter>
+          <pattern id="speckles" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.2" fill="#050505" />
+            <circle cx="12" cy="16" r=".9" fill="#bbff00" />
+            <circle cx="19" cy="7" r=".7" fill="#fff" />
+          </pattern>
         </defs>
 
-        {/* Road: shadow, asphalt, curb, centre line */}
+        {/* Shadow pass */}
         <path
-          d={ROAD_PATH}
+          d={ROPE_PATH}
           fill="none"
-          stroke="#000"
-          strokeWidth="78"
+          stroke="#010101"
+          strokeWidth="92"
           strokeLinecap="round"
-          style={{ filter: 'blur(16px)', opacity: 0.18 }}
-          transform="translate(0 18)"
+          strokeLinejoin="round"
+          style={{ filter: 'blur(18px)', opacity: 0.32, mixBlendMode: 'multiply' }}
         />
+        {/* Neon glow pass */}
         <path
-          d={ROAD_PATH}
+          d={ROPE_PATH}
           fill="none"
-          stroke="#a550ff"
-          strokeWidth="88"
+          stroke="url(#ropeGrad)"
+          strokeWidth="94"
           strokeLinecap="round"
-          opacity=".45"
-          style={{ filter: 'blur(10px)' }}
+          strokeLinejoin="round"
+          filter="url(#neonBlur)"
+          opacity=".95"
         />
+        {/* Core */}
         <path
-          ref={measureRoad}
-          d={ROAD_PATH}
+          d={ROPE_PATH}
           fill="none"
-          stroke="#a550ff"
-          strokeWidth="80"
+          stroke="url(#ropeCore)"
+          strokeWidth="70"
           strokeLinecap="round"
+          strokeLinejoin="round"
+          filter="url(#softShadow)"
         />
+        {/* Speckle texture */}
         <path
-          d={ROAD_PATH}
+          d={ROPE_PATH}
           fill="none"
-          stroke="#0b0b0b"
-          strokeWidth="72"
+          stroke="url(#speckles)"
+          strokeWidth="74"
           strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ opacity: 0.14, mixBlendMode: 'multiply' }}
         />
+        {/* Parcel flow — dashes traveling from merchant to carrier */}
         <path
-          d={ROAD_PATH}
+          d={ROPE_PATH}
           fill="none"
-          stroke="#a550ff"
-          strokeWidth="3"
+          stroke="#ffffff"
+          strokeWidth="6"
           strokeLinecap="round"
           className="rope-flow"
-          opacity=".9"
+          opacity=".85"
         />
 
-        {/* Parcels waiting on the road — eaten as the merchant pacman passes */}
-        {parcels.map((d) =>
-          d.l > at + 6 ? (
-            <g key={d.l} transform={`translate(${d.x} ${d.y})`}>
-              <rect x="-8" y="-7" width="16" height="14" rx="2" fill="#bbff00" />
-              <path d="M0 -7v14M-8 -2h16" stroke="#050505" strokeWidth="1.6" opacity=".55" />
-            </g>
-          ) : null,
-        )}
+        {/* Floating accents */}
+        <circle cx="330" cy="146" r="22" fill="#a550ff" filter="url(#neonBlur)" />
+        <circle cx="112" cy="525" r="10" fill="#050505" opacity=".7" />
+        <circle cx="452" cy="56" r="12" fill="#bbff00" opacity=".9" />
 
-        {/* Ink pacman — the carrier, mouth open towards the road */}
-        <g transform={`translate(${end.x + 22} ${end.y}) rotate(180)`} filter="url(#softShadow)">
-          <path d={pacmanPath(64, carrierMouth)} fill="#050505" stroke="#bbff00" strokeWidth="3" />
-          <circle cx="16" cy="32" r="8" fill="#bbff00" />
+        {/* Lime pacman — merchant end */}
+        <g transform="translate(96 486) rotate(-20)">
+          <path d="M0 0 L74 -40 A84 84 0 1 0 74 40 Z" fill="#bbff00" filter="url(#softShadow)" />
+          <circle cx="30" cy="-36" r="9" fill="#050505" />
         </g>
+        {/* Ink pacman — carrier end */}
+        <g transform="translate(606 128) rotate(160)">
+          <path d="M0 0 L78 -42 A88 88 0 1 0 78 42 Z" fill="#050505" filter="url(#softShadow)" />
+          <circle
+            cx="30"
+            cy="-38"
+            r="9"
+            fill="#bbff00"
+            style={{ filter: 'drop-shadow(0 0 10px rgba(187,255,0,.85))' }}
+          />
+        </g>
+      </svg>
 
-        {/* Hand-off: the carrier just received an order */}
-        {handoff > 0 && (
-          <g
-            transform={`translate(${end.x + 22} ${end.y - 82 - handoff * 34})`}
-            opacity={handoff < 0.75 ? 1 : (1 - handoff) * 4}
-          >
-            <rect x="-62" y="-20" width="124" height="40" fill="#bbff00" stroke="#050505" strokeWidth="2.5" />
-            <text
-              textAnchor="middle"
-              dy="7"
-              style={{
-                fontSize: '19px',
-                fontFamily: labelFont,
-                fontWeight: 700,
-                letterSpacing: labelSpacing ?? '0.06em',
-              }}
-              fill="#050505"
-              direction={rtl ? 'rtl' : 'ltr'}
-            >
-              {orderLabel}
-            </text>
-          </g>
-        )}
-
-        {/* Lime pacman — the merchant, chomping along the road */}
-        {len > 0 && (
-          <g
-            transform={`translate(${p.x} ${p.y}) rotate(${angle})`}
-            filter="url(#softShadow)"
-            opacity={merchantOpacity}
-          >
-            <path d={pacmanPath(46, merchantMouth)} fill="#bbff00" stroke="#050505" strokeWidth="3" />
-            <circle cx="10" cy="-24" r="6" fill="#050505" />
-          </g>
-        )}
+      {/* Wire globe ornament — physical position: the art never mirrors in RTL */}
+      <svg
+        viewBox="0 0 160 160"
+        className="absolute left-4 top-4 hidden h-36 w-36 opacity-45 xl:block"
+      >
+        <circle cx="80" cy="80" r="72" fill="none" stroke="#111" strokeWidth="1.1" />
+        <ellipse cx="80" cy="80" rx="30" ry="72" fill="none" stroke="#111" strokeWidth="1" />
+        <ellipse cx="80" cy="80" rx="58" ry="72" fill="none" stroke="#111" strokeWidth="1" />
+        <path d="M8 80h144M18 45h124M18 115h124M80 8v144" fill="none" stroke="#111" strokeWidth="1" />
       </svg>
 
       {/* Orbiting badge — physical position + LTR so the textPath renders */}
@@ -214,7 +168,7 @@ function RopeArt({ animate, orderLabel, orbitLabel, rtl }: RopeArtProps) {
               fontSize: rtl ? '10.5px' : '9.2px',
               fontFamily: labelFont,
               fontWeight: 700,
-              letterSpacing: labelSpacing ?? '0.2em',
+              letterSpacing: rtl ? '0' : '0.2em',
             }}
             className="fill-ink uppercase"
           >
@@ -227,7 +181,7 @@ function RopeArt({ animate, orderLabel, orbitLabel, rtl }: RopeArtProps) {
           </span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -306,12 +260,13 @@ export function Hero() {
             transition={{ delay: 0.6, duration: 0.6 }}
             className="mt-8 flex flex-wrap items-center gap-4"
           >
-            <a href="#api" className="btn btn-ink inline-flex">
+            <a href="#start" data-cta="hero_merchant" className="btn btn-ink inline-flex">
               {t('hero.cta1')}
               <ArrowUpRight className="h-4 w-4" />
             </a>
             <a
-              href="#platform"
+              href="#join"
+              data-cta="hero_carrier"
               className="mono-label group inline-flex min-h-12 cursor-pointer items-center gap-2 py-2"
             >
               <span className="marker-lime">{t('hero.cta2')}</span>
@@ -322,12 +277,7 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <RopeArt
-          animate={!reduce}
-          orderLabel={t('hero.order')}
-          orbitLabel={t('hero.orbit')}
-          rtl={rtl}
-        />
+        <RopeArt float={!reduce} orbitLabel={t('hero.orbit')} rtl={rtl} />
       </div>
     </section>
   );
