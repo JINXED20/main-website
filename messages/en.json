@@ -185,6 +185,16 @@
     "note": "Opens WhatsApp with your details filled in.",
     "sent": "WhatsApp opened in a new tab. Tap Send there to reach us.",
     "sentRetry": "Didn't open? Try again",
+    "errors": {
+      "name": "Enter your name",
+      "phone": "Enter your phone number",
+      "phoneInvalid": "Enter a valid phone number, like +963 9XX XXX XXX",
+      "business": {
+        "merchant": "Enter your store name",
+        "carrier": "Enter your company name"
+      },
+      "city": "Choose a governorate"
+    },
     "msg": {
       "merchant": "Hi Ordex! I'm a merchant and I want to start shipping with Ordex.",
       "carrier": "Hi Ordex! We're a delivery company and we want to join Ordex."
