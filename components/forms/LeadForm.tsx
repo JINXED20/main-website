@@ -20,18 +20,23 @@ const FIELD =
 // Literal colors: the native dropdown stays readable in light and dark themes
 const OPTION = 'bg-white text-black';
 
-/** Arabic keyboards type ٠١٢ digits; the message and the check use 012. */
-function normalizeDigits(value: string) {
+/**
+ * Arabic keyboards type ٠١٢ digits, and numbers pasted from contacts can carry
+ * invisible direction marks and non-breaking spaces. Reduce all of it to plain text.
+ */
+function normalizePhone(value: string) {
   return value
+    .replace(/\p{Cf}/gu, '')
+    .replace(/\p{Zs}/gu, ' ')
     .replace(/[٠-٩]/g, (d) => String(d.charCodeAt(0) - 0x0660))
-    .replace(/[۰-۹]/g, (d) => String(d.charCodeAt(0) - 0x06f0));
+    .replace(/[۰-۹]/g, (d) => String(d.charCodeAt(0) - 0x06f0))
+    .trim();
 }
 
 function validateField(name: FieldName, raw: string): FieldError | undefined {
-  const value = raw.trim();
-  if (name !== 'phone') return value ? undefined : name;
-  if (!value) return 'phone';
-  const phone = normalizeDigits(value);
+  if (name !== 'phone') return raw.trim() ? undefined : name;
+  const phone = normalizePhone(raw);
+  if (!phone) return 'phone';
   const digits = phone.replace(/\D/g, '').length;
   return /^[+0-9 ()-]{7,20}$/.test(phone) && digits >= 7 ? undefined : 'phoneInvalid';
 }
@@ -48,20 +53,20 @@ export function LeadForm() {
   const [errors, setErrors] = useState<Errors>({});
   const radios = useRef<Partial<Record<LeadType, HTMLButtonElement | null>>>({});
 
+  function selectType(next: LeadType) {
+    setType(next);
+    setSentUrl(null);
+  }
+
   useEffect(() => {
     const sync = () => {
-      if (window.location.hash === '#join') setType('carrier');
-      else if (window.location.hash === '#start') setType('merchant');
+      const next = window.location.hash === '#join' ? 'carrier' : window.location.hash === '#start' ? 'merchant' : null;
+      if (next) selectType(next);
     };
     sync();
     window.addEventListener('hashchange', sync);
     return () => window.removeEventListener('hashchange', sync);
   }, []);
-
-  function selectType(next: LeadType) {
-    setType(next);
-    setSentUrl(null);
-  }
 
   function onRadioKeyDown(e: React.KeyboardEvent<HTMLButtonElement>, current: LeadType) {
     if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) return;
@@ -77,6 +82,8 @@ export function LeadForm() {
   function recheck(e: React.SyntheticEvent<HTMLInputElement | HTMLSelectElement>) {
     const field = e.currentTarget.name as FieldName;
     const value = e.currentTarget.value;
+    // The retry link holds the submitted details, so an edit makes it stale
+    setSentUrl(null);
     setErrors((prev) => (prev[field] ? { ...prev, [field]: validateField(field, value) } : prev));
   }
 
@@ -104,7 +111,7 @@ export function LeadForm() {
     const text = [
       t(`msg.${type}`),
       `${t('name')}: ${get('name')}`,
-      `${t('phone')}: ${normalizeDigits(get('phone'))}`,
+      `${t('phone')}: ${normalizePhone(get('phone'))}`,
       `${t(`business.${type}`)}: ${get('business')}`,
       `${t('city')}: ${t(`gov.${city}`)}`,
     ].join('\n');
