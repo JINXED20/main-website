@@ -35,7 +35,7 @@ export async function Footer() {
             <a
               href={`mailto:${t('footer.ctaEmail')}`}
               dir="ltr"
-              className="mono-label cursor-pointer text-base text-white/80 transition-colors hover:text-lime"
+              className="mono-label inline-flex min-h-11 cursor-pointer items-center text-base text-white/80 transition-colors hover:text-lime"
             >
               {t('footer.ctaEmail')}
             </a>
@@ -75,12 +75,12 @@ export async function Footer() {
 
           <div>
             <h3 className="mono-label mb-4 text-lime">{t('footer.contactLabel')}</h3>
-            <ul className="space-y-4 text-sm text-white/75">
+            <ul className="space-y-4 text-sm text-white/75 max-md:space-y-0">
               <li>
                 <a
                   href={`mailto:${t('footer.ctaEmail')}`}
                   dir="ltr"
-                  className="cursor-pointer transition-colors hover:text-lime"
+                  className="max-md:inline-flex max-md:min-h-11 max-md:min-w-11 max-md:items-center cursor-pointer transition-colors hover:text-lime"
                 >
                   {t('footer.ctaEmail')}
                 </a>
@@ -90,22 +90,22 @@ export async function Footer() {
                   <a
                     href={`tel:${t(`footer.${key}.phone`).replace(/\s/g, '')}`}
                     dir="ltr"
-                    className="cursor-pointer tabular-nums transition-colors hover:text-lime"
+                    className="max-md:inline-flex max-md:min-h-11 max-md:min-w-11 max-md:items-center cursor-pointer tabular-nums transition-colors hover:text-lime"
                   >
                     {t(`footer.${key}.phone`)}
                   </a>
                 </li>
               ))}
-              <li>{t('footer.city')}</li>
+              <li className="max-md:flex max-md:min-h-11 max-md:items-center">{t('footer.city')}</li>
             </ul>
           </div>
 
           <div>
             <h3 className="mono-label mb-4 text-lime">{t('footer.linksLabel')}</h3>
-            <ul className="space-y-2 text-sm text-white/75">
+            <ul className="space-y-2 text-sm text-white/75 max-md:space-y-0">
               {FOOTER_LINKS.map(({ key, href }) => (
                 <li key={key}>
-                  <a href={href} className="cursor-pointer transition-colors hover:text-lime">
+                  <a href={href} className="max-md:inline-flex max-md:min-h-11 max-md:min-w-11 max-md:items-center cursor-pointer transition-colors hover:text-lime">
                     {t(`nav.${key}`)}
                   </a>
                 </li>

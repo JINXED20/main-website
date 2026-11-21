@@ -3,8 +3,8 @@
 import { useSyncExternalStore } from 'react';
 import { useTranslations } from 'next-intl';
 
-/** Runs in <head> before paint: saved choice, else the OS setting. */
-export const THEME_SCRIPT = `(function(){try{var s=localStorage.getItem('theme');var d=s?s==='dark':matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark')}catch(e){}})();`;
+/** Runs in <head> before paint: light by default, dark only if the visitor chose it. */
+export const THEME_SCRIPT = `(function(){try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}})();`;
 
 // The <html class="dark"> flag is the single source of truth
 const subscribe = (onChange: () => void) => {

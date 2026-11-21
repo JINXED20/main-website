@@ -124,7 +124,7 @@
 /* Mono micro-labels */
 .mono-label {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -445,7 +445,7 @@
 
 /* ------------------------------ Themes ----------------------------------
    Light is the default. html.dark is set before paint by THEME_SCRIPT
-   (saved choice, else the OS setting). Rules here are unlayered on purpose
+   (only when the visitor chose dark). Rules here are unlayered on purpose
    so they win over Tailwind utilities. */
 
 :root {
