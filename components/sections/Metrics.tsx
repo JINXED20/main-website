@@ -60,7 +60,8 @@ export function Metrics() {
             <div key={key} className="min-h-28 px-1 py-7 lg:px-8 lg:first:ps-0 lg:last:pe-0">
               <strong
                 dir="ltr"
-                className="block text-4xl font-extrabold tracking-tight tabular-nums lg:text-[40px]"
+                // w-fit: the LTR number sits at the column's start, so it lines up with the label in Arabic too
+                className="block w-fit text-4xl font-extrabold tracking-tight tabular-nums lg:text-[40px]"
               >
                 {t(`${key}.prefix`)}
                 <CountUp
