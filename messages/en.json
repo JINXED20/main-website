@@ -32,8 +32,21 @@
     "line3": "One gateway.",
     "sub": "Ordex plugs your store into every carrier in Syria. We route, dispatch, track, and reconcile cash on delivery — while you keep selling.",
     "cta1": "Start shipping",
-    "orbit": "Ship with Ordex • Carrier OS • One API •",
-    "order": "+1 ORDER",
+    "art": {
+      "waybill": "Waybill",
+      "order": "Order",
+      "from": "From",
+      "via": "Via",
+      "to": "To",
+      "store": "Your store",
+      "ordex": "Ordex",
+      "carrierA": "Carrier A",
+      "carrierB": "Carrier B",
+      "picked": "Picked up",
+      "transit": "In transit",
+      "delivered": "Delivered",
+      "cod": "COD settled"
+    },
     "cta2": "Join as a carrier"
   },
   "metrics": {

@@ -1,14 +1,13 @@
 import type { CSSProperties } from 'react';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { ArrowUpRight } from '@/components/ui/icons';
-import { HeroTrack } from './HeroTrack';
+import { HeroPrinter } from './HeroPrinter';
 
 /** Stagger delay for the CSS entrance (.hero-rise in globals.css) */
 const at = (seconds: number) => ({ '--d': `${seconds}s` }) as CSSProperties;
 
 export async function Hero() {
   const t = await getTranslations();
-  const rtl = (await getLocale()) === 'ar';
 
   return (
     <section id="top" className="relative overflow-hidden">
@@ -74,7 +73,7 @@ export async function Hero() {
           </div>
         </div>
 
-        <HeroTrack orbitLabel={t('hero.orbit')} orderLabel={t('hero.order')} rtl={rtl} />
+        <HeroPrinter />
       </div>
     </section>
   );
