@@ -73,6 +73,7 @@ export async function generateMetadata({
     },
     openGraph: {
       type: 'website',
+      url: `/${locale}`,
       siteName: 'Ordex',
       locale: locale === 'ar' ? 'ar_SY' : 'en_US',
       title: t('title'),
