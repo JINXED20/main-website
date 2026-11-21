@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Logo } from '@/components/ui/Logo';
 import { ArrowUpRight, Close, Menu } from '@/components/ui/icons';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { ThemeToggle } from './ThemeToggle';
 
 const NAV_ITEMS = [
   { key: 'platform', href: '#platform' },
@@ -61,6 +62,7 @@ export function Topbar() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <LanguageSwitcher className="hidden sm:inline-flex" />
           <a href="#start" data-cta="nav" className="btn btn-ink hidden md:inline-flex">
             {t('nav.cta')}

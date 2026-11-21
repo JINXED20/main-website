@@ -14,14 +14,24 @@ interface LogoProps {
 
 export function Logo({ className = '', inverted = false }: LogoProps) {
   if (!inverted) {
+    // Two exports; CSS shows the one matching the theme (no flash before hydration)
     return (
-      // eslint-disable-next-line @next/next/no-img-element -- static brand SVG, no optimization needed
-      <img
-        src="/brand/ordex-mark.svg"
-        alt="Ordex"
-        dir="ltr"
-        className={`inline-block h-[1.4em] w-auto ${className}`}
-      />
+      <>
+        {/* eslint-disable-next-line @next/next/no-img-element -- static brand SVG, no optimization needed */}
+        <img
+          src="/brand/ordex-mark.svg"
+          alt="Ordex"
+          dir="ltr"
+          className={`logo-light inline-block h-[1.4em] w-auto ${className}`}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element -- static brand SVG, no optimization needed */}
+        <img
+          src="/brand/ordex-mark-dark.svg"
+          alt="Ordex"
+          dir="ltr"
+          className={`logo-dark h-[1.4em] w-auto ${className}`}
+        />
+      </>
     );
   }
   return (
