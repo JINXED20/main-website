@@ -7,12 +7,13 @@
 
 @theme inline {
   /* Colors */
-  --color-paper: #f6f6f1;
-  --color-card: #ffffff;
-  --color-ink: #000000;
-  --color-ink-soft: #171717;
-  --color-muted: #63635c;
-  --color-line: #d8d8cf;
+  /* Theme-able: values live on :root / html.dark below */
+  --color-paper: var(--c-paper);
+  --color-card: var(--c-card);
+  --color-ink: var(--c-ink);
+  --color-ink-soft: var(--c-ink-soft);
+  --color-muted: var(--c-muted);
+  --color-line: var(--c-line);
   --color-lime: #bbff00;
   --color-lime-hot: #dfff00;
   --color-purple: #a550ff;
@@ -441,3 +442,91 @@
 }
 
 } /* end @layer components */
+
+/* ------------------------------ Themes ----------------------------------
+   Light is the default. html.dark is set before paint by THEME_SCRIPT
+   (saved choice, else the OS setting). Rules here are unlayered on purpose
+   so they win over Tailwind utilities. */
+
+:root {
+  --c-paper: #f6f6f1;
+  --c-card: #ffffff;
+  --c-ink: #000000;
+  --c-ink-soft: #171717;
+  --c-muted: #63635c;
+  --c-line: #d8d8cf;
+}
+
+html.dark {
+  color-scheme: dark;
+  --c-paper: #121211;
+  --c-card: #0a0a0a;
+  --c-ink: #f4f4ee;
+  --c-ink-soft: #d6d6cf;
+  --c-muted: #9b9b92;
+  --c-line: #2a2a26;
+}
+
+/* "Ink" surfaces (Audience band, footer, code card, chips) stay dark,
+   lifted a step off the page so they still read as bands. */
+html.dark :is(.bg-ink, .hover\:bg-ink:hover) {
+  --c-ink: #161615;
+}
+html.dark .skip-link {
+  background: #161615;
+}
+html.dark :is(.bg-ink-soft) {
+  background-color: #1f1f1d;
+}
+
+/* Lime surfaces keep black text, whatever sits inside them */
+html.dark :is(
+    .bg-lime, .bg-lime-hot, .btn-lime, .arrow-chip, mark,
+    .hover\:bg-lime:hover, .group:hover .group-hover\:bg-lime, .group[open] .group-open\:bg-lime
+  ) {
+  --c-ink: #000000;
+  --c-ink-soft: #171717;
+  --c-muted: #3d3d38;
+  color: #000;
+}
+
+/* Primary button inverts: light fill, black text */
+html.dark .btn-ink {
+  color: #000;
+}
+
+/* Half-height lime marker can't carry light text: colour the words instead */
+html.dark .marker-lime {
+  background: none;
+  color: var(--color-lime);
+}
+
+/* Logo: swap to the light-letter export */
+.logo-dark { display: none; }
+html.dark .logo-light { display: none; }
+html.dark .logo-dark { display: inline-block; }
+
+/* Hero / Strategy art drawn with literal black */
+html.dark #top svg path[fill="#050505"],
+html.dark #top svg circle[r="10"][fill="#050505"],
+html.dark svg circle[r="4"][fill="#000"] {
+  fill: #f4f4ee;
+}
+html.dark #top svg [stroke="#111"] {
+  stroke: #f4f4ee;
+}
+html.dark #top .fill-ink {
+  fill: #000;
+}
+
+/* Theme toggle icon: moon in light mode, sun in dark */
+.theme-icon-sun { display: none; }
+html.dark .theme-icon-sun { display: block; }
+html.dark .theme-icon-moon { display: none; }
+
+/* Hero track: SMIL ignores reduced motion, so swap to the still frame */
+.track-still { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .track-anim { display: none; }
+  .track-still { display: block; }
+}

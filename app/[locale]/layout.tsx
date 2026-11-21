@@ -8,6 +8,7 @@ import { Topbar } from '@/components/layout/Topbar';
 import { Footer } from '@/components/layout/Footer';
 import { Clarity } from '@/components/layout/Clarity';
 import { REVEAL_SCRIPT } from '@/components/motion/Reveal';
+import { THEME_SCRIPT } from '@/components/layout/ThemeToggle';
 import { Analytics } from '@vercel/analytics/next';
 import { CtaTracker } from '@/components/analytics/CtaTracker';
 import { CONTACT_EMAIL, CONTACT_PHONES, SITE_URL } from '@/lib/site';
@@ -135,6 +136,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       className={`${archivoBlack.variable} ${archivo.variable} ${geistMono.variable} ${kufiArabic.variable} ${cairo.variable}`}
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: REVEAL_SCRIPT }} />
       </head>
       <body>
